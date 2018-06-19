@@ -1,31 +1,154 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model Tuple<IPagedList<SwiftSearch.Data.Vehicle>, IPagedList<SwiftSearch.Data.Furniture>>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="search-form-header no-overlap">
+        <div class="container">
+            <h2 class="text-center ">Get all Your Cars and Furnitures here on the go!</h2>
+
+                @using (Html.BeginForm())
+        {
+
+            <div class="row search-form-top-fields">
+                <div class="col-md-11">
+                    <input type="text" name="keyword" value="@ViewBag.Keyword" placeholder="Enter your Cars and Furniture names and Manufactures here, e.g.: Toyota, Sofa, Mercerdes, Honda, etc" class="form-control" />
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" class="form-btn search-btn"><i class="ion-android-search"></i></button>
+                </div>
+            </div>
+}
+
+
+            </div>
+        </div>
+
+    <main id="main" class="main">
+
+
+        <div class="container row-padding">
+            <div class="row">
+                <div class="col-md-8">
+                    <header class="section-header">
+
+                        <h2 class="section-title">Popular Listings</h2>
+                    </header>
+                </div>
+                <div class="col-md-4 text-right">
+                    <br>
+                    <br>
+                    <a href="property-grid.html" class="btn btn-outline-primary">More Properties</a>
+                </div>
+            </div>
+        
+            <div class="row">
+                @if (Model == null)
+    {
+            <p>@ViewBag.NullSearch</p>
+}
+else
+{
+foreach (var item in Model.Item1)
+{
+            <div class="col-md-6 col-lg-4">
+                <article class="property-post property-post-grid clearfix">
+                    <div class="property-thumbnail">
+                        <a href="@Url.Action("Details","Vehicles", new { id=item.ID})"><img src="@Url.Content(item.CarImage)" alt="Property"></a>
+                        <div class="property-label"><a href="#">For Sale</a></div>
+                    </div>
+                    <div class="property-wrap">
+                        <header class="property-header clearfix">
+                            <div class="property-actions-wrap">
+                                <span class="action-btn property-gallery-images" data-toggle="tooltip" data-placement="top" title="3 Photos"><i class="fa fa-camera"></i></span>
+                                <span class="action-btn property-add-to-fav" data-toggle="tooltip" data-placement="top" title="Add to Favorite"><i class="fa fa-heart"></i></span>
+                                <span class="action-btn property-add-to-compare" data-property-id="12" data-toggle="tooltip" data-placement="top" title="Add to Compare"><i class="fa fa-exchange"></i></span>
+                            </div>
+                            <h2 class="property-title">
+                                <a href="single-property.html">@item.CarName</a>
+                            </h2>
+                            <p class="property-location">@item.CarAddress</p>
+
+                        </header>
+                        <ul class="property-meta list-unstyled">
+                            <li>@item.CarModel</li>
+
+                        </ul>
+                        <footer class="property-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="property-price"><span>#</span>@item.CarPrice.ToString("#,##,00.00")</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="@Url.Action("Details","Vehicles", new { id = item.ID})" class="btn btn-primary">More Info</a>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+}
+foreach (var item in Model.Item2)
+{
+            <div class="col-md-6 col-lg-4">
+                <article class="property-post property-post-grid clearfix">
+                    <div class="property-thumbnail">
+                        <a href="@Url.Action("Details","Vehicles", new { id=item.ID})"><img src="@Url.Content(item.FurnitureImage)" alt="Property"></a>
+                        <div class="property-label"><a href="#">For Sale</a></div>
+                    </div>
+                    <div class="property-wrap">
+                        <header class="property-header clearfix">
+                            <div class="property-actions-wrap">
+                                <span class="action-btn property-gallery-images" data-toggle="tooltip" data-placement="top" title="3 Photos"><i class="fa fa-camera"></i></span>
+                                <span class="action-btn property-add-to-fav" data-toggle="tooltip" data-placement="top" title="Add to Favorite"><i class="fa fa-heart"></i></span>
+                                <span class="action-btn property-add-to-compare" data-property-id="12" data-toggle="tooltip" data-placement="top" title="Add to Compare"><i class="fa fa-exchange"></i></span>
+                            </div>
+                            <h2 class="property-title">
+                                <a href="single-property.html">@item.FurnitureName</a>
+                            </h2>
+                            <p class="property-location">@item.FurnitureAddress</p>
+
+                        </header>
+                        <ul class="property-meta list-unstyled">
+                            <li>@item.FurnitureModel</li>
+
+                        </ul>
+                        <footer class="property-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="property-price"><span>#</span>@item.FurniturePrice.ToString("#,##,00.00")</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="@Url.Action("Details","Furnitures", new { id = item.ID})" class="btn btn-primary">More Info</a>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+}
+}
+
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <div class="pagedList" style="margin:5%">
+        @Html.PagedListPager((Model.Item1), page => Url.Action("Index", new
+        {
+            page,
+            sortOn = ViewBag.SortOn,
+            orderBy = ViewBag.OrderBy,
+            pSortOn = ViewBag.SortOn,
+            keyword = ViewBag.Keyword
+        }),
+                 PagedListRenderOptions.ClassicPlusFirstAndLast)
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>

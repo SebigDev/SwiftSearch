@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SwiftSearch.Data;
 
 namespace SwiftSearch.Models
 {
@@ -18,16 +19,19 @@ namespace SwiftSearch.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class SwiftSearchDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public SwiftSearchDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static SwiftSearchDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new SwiftSearchDbContext();
         }
+
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Furniture> Furnitures { get; set; }
     }
 }

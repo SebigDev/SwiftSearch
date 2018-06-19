@@ -1,0 +1,487 @@
+/*
+Theme Name: HomeFind - Theme
+Version: 1.0.0
+*/
+::-moz-selection {
+  background: #ff6363;
+  color: #fff; }
+
+::selection {
+  background: #ff6363;
+  color: #fff; }
+
+body {
+
+
+  color: #96989f; }
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: #0e1832; }
+
+a {
+  color: #0e1832; }
+
+a:hover {
+  color: #ff6363; }
+
+.owl-theme .owl-nav .owl-prev, .owl-theme .owl-nav .owl-next, .big-button-nav a, .home-property-slider .flex-direction-nav a, .home-carousel-wrap .home-nav-wrapper a, .testimonial-nav-wrapper a, .agent-carousel-nav-wrapper a, input[type="submit"], input[type="submit"]:hover, .pagination li > a, .pagination li > span, .select2-container--default .select2-results__option[aria-selected=true], .select2-container--default .select2-results__option--highlighted[aria-selected], .accordion-sections.opened .accordion-header, .accordion-sections.opened .toggle-header, .toggle-sections.opened .accordion-header, .toggle-sections.opened .toggle-header, .accordion-header:hover, .toggle-header:hover, .widget_tag_cloud a, .widget_tag_cloud a:hover, .footer .widget_contact .title, .footer .widget_contact a, .footer .widget_contact .fa, .widget_featured_properties .featured-properties-nav-wrapper a, .search-btn, .search-btn:hover, .owl-theme .owl-nav .owl-prev:hover, .owl-theme .owl-nav .owl-next:hover, .advance-search .select2-container--default .select2-results__option[aria-selected=true], .advance-search .select2-container--default .select2-results__option--highlighted[aria-selected], .slicknav_nav a:hover, .slicknav_nav a:hover a, .slicknav_nav .slicknav_row:hover, .add-property-link:hover, .main-navigation .menu-primary li.current-menu-item > a, .main-navigation .menu-primary li:hover > a, .site-title, .site-title a:hover, .sub-header, .footer .widget-title, .footer .widget_archive a, .footer .widget_categories a, .footer .widget_nav_menu a, .sub-footer a:hover, #scroll-to-top:hover, .home-carousel .property-header, .home-carousel .property-title a, .property-thumb .property-title, .property-thumb .property-price, .property-thumb .advance-search input, .advance-search .property-thumb input, .property-thumb .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .property-thumb .select2-selection__rendered, .property-thumb .advance-btn, .property-thumb .search-features-list .title, .search-features-list .property-thumb .title, .property-thumb .search-features-list label, .search-features-list .property-thumb label, .property-thumb .footer, .property-thumb .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .property-thumb span, .property-thumb .tabs-nav-list li, .tabs-nav-list .property-thumb li, .property-thumb .agent-carousel-content span, .agent-carousel-content .property-thumb span, .property-thumb .single-agent-content span, .single-agent-content .property-thumb span, .property-thumb .user-info-wrapper span, .user-info-wrapper .property-thumb span, .call-to-action .title, .testimonial-carousel-two .testimonial .name, .testimonial-carousel-two .testimonial-content, .login-modal .modal-header, .facebook-login, .facebook-login:hover, .twitter-login, .twitter-login:hover, .google-login, .google-login:hover, .property-label a, .property-label span, .single-property-slider .flex-direction-nav a, .property-video-wrap i, .single-property-agent input[type="submit"], .single-property-agent input[type="submit"]:hover, .single-detail .fa:hover, .add-new-detail:hover, .agent-carousel-content, .single-agent-content, .upload-btn:hover, .change-password-form .title, .user-info-wrapper, .user-navigation li {
+  color: #fff; }
+
+input[type="text"], input[type="email"], input[type="search"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], select, textarea, .accordion-header, .toggle-header, .widget_property_search, .widget_featured_properties .property-price, .widget_featured_properties .advance-search input, .advance-search .widget_featured_properties input, .widget_featured_properties .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .widget_featured_properties .select2-selection__rendered, .widget_featured_properties .advance-btn, .widget_featured_properties .search-features-list .title, .search-features-list .widget_featured_properties .title, .widget_featured_properties .search-features-list label, .search-features-list .widget_featured_properties label, .widget_featured_properties .footer, .widget_featured_properties .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .widget_featured_properties span, .widget_featured_properties .tabs-nav-list li, .tabs-nav-list .widget_featured_properties li, .widget_featured_properties .agent-carousel-content span, .agent-carousel-content .widget_featured_properties span, .widget_featured_properties .single-agent-content span, .single-agent-content .widget_featured_properties span, .widget_featured_properties .user-info-wrapper span, .user-info-wrapper .widget_featured_properties span, .advance-btn, .advance-fields, .add-property-link, .main-navigation .menu-primary .sub-menu, .slide-caption .property-post, .contact-infoBox, .single-property-agent, .property-google-map .property-infoBox, .checkbox-wrap label:before, .property-compare-container, .property-compare-container::-webkit-scrollbar-track, .property-compare-container::-webkit-scrollbar {
+  background-color: #fff; }
+
+.single-property-slider .flex-direction-nav a {
+  border-color: #fff; }
+
+input[type="text"], input[type="email"], input[type="search"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], select, textarea, .select2-container--default .select2-selection--single, .select2-container--default .select2-search--dropdown .select2-search__field, .select2-dropdown, .accordion-header, .toggle-header, .img-wrap, .widget_search input[type="submit"], .advance-btn, .search-features-btn, .partner-carousel .owl-stage-outer, .contact-infoBox, .blog-post-wrap, .blog-post-grid-wrap, .property-post-grid .property-wrap, .property-post-list, .property-two .property-wrap, .single-property-agent, .notice, .add-property-form, .agent {
+  border-color: #e5e8ec; }
+
+.btn-outline-primary, .sidebar .widget_property_types li span, .sidebar .widget_archive li span, .sidebar .widget_recent_entries li span, .sidebar .widget_categories li span, .sidebar .widget_recent_comments li span, .sidebar .widget_nav_menu li span, .footer .widget_contact a:hover, .widget_social_media a:hover, .advance-btn.active, .advance-btn:hover, .add-property-link, .breadcrumb-item a, #scroll-to-top, .home-carousel .property-title a:hover, .testimonial-carousel-two .testimonial-content:before, .login-modal .related-links .sign-in, .signin-form .form-group .fa, .register-form .form-group .fa, .lost-password-form .form-group .fa, .entry-content blockquote:before, .entry-share-this > a, .property-view-btn.current, .property-view-btn:hover, .property-actions-wrap .property-add-to-fav:hover, .property-actions-wrap .property-add-to-compare:hover, .property-three .property-price, .property-three .advance-search input, .advance-search .property-three input, .property-three .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .property-three .select2-selection__rendered, .property-three .advance-btn, .property-three .search-features-list .title, .search-features-list .property-three .title, .property-three .search-features-list label, .search-features-list .property-three label, .property-three .footer, .property-three .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .property-three span, .property-three .tabs-nav-list li, .tabs-nav-list .property-three li, .property-three .agent-carousel-content span, .agent-carousel-content .property-three span, .property-three .single-agent-content span, .single-agent-content .property-three span, .property-three .user-info-wrapper span, .user-info-wrapper .property-three span, .single-property-header-two .property-price, .single-property-header-two .advance-search input, .advance-search .single-property-header-two input, .single-property-header-two .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .single-property-header-two .select2-selection__rendered, .single-property-header-two .advance-btn, .single-property-header-two .search-features-list .title, .search-features-list .single-property-header-two .title, .single-property-header-two .search-features-list label, .search-features-list .single-property-header-two label, .single-property-header-two .footer, .single-property-header-two .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .single-property-header-two span, .single-property-header-two .tabs-nav-list li, .tabs-nav-list .single-property-header-two li, .single-property-header-two .agent-carousel-content span, .agent-carousel-content .single-property-header-two span, .single-property-header-two .single-agent-content span, .single-agent-content .single-property-header-two span, .single-property-header-two .user-info-wrapper span, .user-info-wrapper .single-property-header-two span, .features-list > li a:hover, .property-google-map-loader .loading-text, .checkbox-wrap label:before, .property-compare .ion-close, .close-compare-container:hover, .agent-carousel-content .agent-social-media a, .single-agent-content .agent-social-media a, .single-agent-content .contact i, .edit-profile-form .title, .add-property-form .title, .user-navigation li.active, .user-navigation li.active a, .user-navigation li a:hover {
+  color: #ff6363; }
+
+.tooltip-inner, input[type="submit"], .select2-container--default .select2-results__option--highlighted[aria-selected], .accordion-sections.opened .accordion-header, .accordion-sections.opened .toggle-header, .toggle-sections.opened .accordion-header, .toggle-sections.opened .toggle-header, .accordion-header:hover, .toggle-header:hover, .btn-primary, .widget_tag_cloud a, .search-btn, .main-navigation-wrapper, .slicknav_menu .slicknav_icon-bar, .home-carousel .property-label a, .home-carousel .property-label span, .property-thumb .property-label a, .property-thumb .property-label span, .single-property-slider .flex-direction-nav a:hover, .property-video-wrap i:hover, .single-property-agent input[type="submit"]:hover, .single-detail .fa:hover, .add-new-detail:hover, .upload-btn:hover {
+  background-color: #ff6363; }
+
+input[type="submit"], .accordion-sections.opened .accordion-header, .accordion-sections.opened .toggle-header, .toggle-sections.opened .accordion-header, .toggle-sections.opened .toggle-header, .accordion-header:hover, .toggle-header:hover, .btn-primary, .btn-outline-primary, .single-property-slider .flex-direction-nav a:hover, .single-property-agent input[type="submit"]:hover, .upload-btn:hover {
+  border-color: #ff6363; }
+
+.breadcrumb-item a:hover, .footer .widget_archive a:hover, .footer .widget_categories a:hover, .footer .widget_nav_menu a:hover, .service i, .property-price, .advance-search input, .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-btn, .search-features-list .title, .search-features-list label, .footer, .testimonial-carousel-two .testimonial .author-info span, .tabs-nav-list li, .agent-carousel-content span, .single-agent-content span, .user-info-wrapper span, .single-property-agent .agent-info .contact, .agent-contact, .single-agent-fullwidth .single-agent-content .agent-social-media a:hover {
+  color: #5b86d7; }
+
+.big-button-nav a:hover, .home-property-slider .flex-direction-nav a:hover, .home-carousel-wrap .home-nav-wrapper a:hover, .testimonial-nav-wrapper a:hover, .agent-carousel-nav-wrapper a:hover, input[type="submit"]:hover, .btn-primary:hover, .btn-outline-primary:hover, .pagination li > a.current, .pagination li > a:hover, .pagination li > span.current, .pagination li > span:hover, .widget_tag_cloud a:hover, .widget_featured_properties .featured-properties-nav-wrapper a:hover, .search-btn:hover, .owl-theme .owl-nav .owl-prev:hover, .owl-theme .owl-nav .owl-next:hover, .advance-search .select2-container--default .select2-results__option[aria-selected=true], .advance-search .select2-container--default .select2-results__option--highlighted[aria-selected], .add-property-link:hover, .main-navigation .menu-primary li.current-menu-item > a, .main-navigation .menu-primary li:hover > a, #scroll-to-top:hover {
+  background-color: #5b86d7; }
+
+.btn-outline-primary:hover, input[type="text"]:focus:not(.error), input[type="email"]:focus:not(.error), input[type="search"]:focus:not(.error), input[type="number"]:focus:not(.error), input[type="password"]:focus:not(.error), input[type="tel"]:focus:not(.error), input[type="url"]:focus:not(.error), select:focus:not(.error), textarea:focus:not(.error), input[type="submit"]:hover, .btn-primary:hover, #scroll-to-top:hover {
+  border-color: #5b86d7; }
+
+.theme-switcher-icon, .sidebar .widget_property_types li, .sidebar .widget_archive li, .sidebar .widget_recent_entries li, .sidebar .widget_categories li, .sidebar .widget_recent_comments li, .sidebar .widget_nav_menu li, .widget_popular_listing .property-price, .widget_popular_listing .advance-search input, .advance-search .widget_popular_listing input, .widget_popular_listing .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .widget_popular_listing .select2-selection__rendered, .widget_popular_listing .advance-btn, .widget_popular_listing .search-features-list .title, .search-features-list .widget_popular_listing .title, .widget_popular_listing .search-features-list label, .search-features-list .widget_popular_listing label, .widget_popular_listing .footer, .widget_popular_listing .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .widget_popular_listing span, .widget_popular_listing .tabs-nav-list li, .tabs-nav-list .widget_popular_listing li, .widget_popular_listing .agent-carousel-content span, .agent-carousel-content .widget_popular_listing span, .widget_popular_listing .single-agent-content span, .single-agent-content .widget_popular_listing span, .widget_popular_listing .user-info-wrapper span, .user-info-wrapper .widget_popular_listing span, .tabs-nav-list li.active, .login-modal .related-links .sign-in:hover, .entry-share-this > a:hover, .property-meta > li, .additional-details-list > li span, .property-floor-plan .toggle-header, .property-floor-plan .toggle-sections.opened .toggle-header, .upload-btn, .edit-profile-form label:not(.error), .add-property-form label:not(.error) {
+  color: #203260; }
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span, .big-button-nav a, .home-property-slider .flex-direction-nav a, .home-carousel-wrap .home-nav-wrapper a, .testimonial-nav-wrapper a, .agent-carousel-nav-wrapper a, .pagination li > a, .pagination li > span, .select2-container--default .select2-results__option[aria-selected=true], .widget_featured_properties .featured-properties-nav-wrapper a, .header, .home-carousel .property-post, .home-property-thumbs, .property-thumb:hover, .property-thumb.active, .testimonial-carousel-two .testimonial-content-wrap, .tabs-nav-list li + li:before, .login-modal .modal-header, .modal-backdrop, .property-label a, .property-label span, .property-meta > li + li:before, .property-video-wrap i, .single-property-agent input[type="submit"], .agent-carousel-two, .single-agent-content, .change-password-form, .user-info-wrapper {
+  background-color: #203260; }
+
+.single-property-agent input[type="submit"] {
+  border-color: #203260; }
+
+.tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: #ff6363; }
+
+.owl-theme .owl-dots .owl-dot span {
+  background-color: #e5e8ec; }
+
+.owl-theme .owl-nav .owl-prev, .owl-theme .owl-nav .owl-next {
+  background: #ff6363; }
+
+.section-order:after {
+  background-color: #d7d8da; }
+
+input[type="text"].error, input[type="email"].error, input[type="search"].error, input[type="number"].error, input[type="password"].error, input[type="tel"].error, input[type="url"].error, select.error, textarea.error {
+  border-color: #ff0000; }
+
+label.error {
+  color: #ff0000; }
+
+.status.success {
+  color: green; }
+
+.status.error, label.error {
+  color: #ff0000; }
+
+.select2-container {
+  color: #0e1832; }
+
+.select2-container--default .select2-selection .select2-selection__arrow b {
+  border-color: #0e1832 transparent transparent transparent; }
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #0e1832 transparent; }
+
+.select2-container--open .select2-dropdown--below {
+  border-top-color: #e5e8ec; }
+
+.select2-container--open .select2-dropdown--above {
+  border-bottom-color: #e5e8ec; }
+
+/* Accordion and Toggle*/
+.accordion-header, .toggle-header {
+  color: #0e1832; }
+
+.accordion-content, .toggle-content {
+  color: #5c5e64; }
+
+.sidebar .widget_property_types li, .sidebar .widget_archive li, .sidebar .widget_recent_entries li, .sidebar .widget_categories li, .sidebar .widget_recent_comments li, .sidebar .widget_nav_menu li {
+  border-bottom-color: #e5e8ec; }
+
+.widget_search input[type="submit"] {
+  background-color: #e5e8ec;
+  background-image: url("../images/icons/search-lense.png"); }
+
+.widget_search input[type="submit"]:hover {
+  background-color: #c8ced6;
+  border-color: #c8ced6; }
+
+.widget_social_media a {
+  color: inherit; }
+
+.widget_property_search ::-webkit-input-placeholder {
+  color: #96989f; }
+
+.widget_property_search :-ms-input-placeholder {
+  color: #96989f; }
+
+.widget_property_search ::-moz-placeholder {
+  color: #96989f; }
+
+.widget_property_search :-moz-placeholder {
+  color: #96989f; }
+
+.widget_property_search .select2-container {
+  color: #0e1832; }
+
+.widget_property_search .select2-container--default .select2-selection .select2-selection__arrow b {
+  border-color: #96989f transparent transparent transparent; }
+
+.widget_property_search .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #96989f transparent; }
+
+.widget_property_search input, .widget_property_search .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #96989f; }
+
+@media (min-width: 768px) {
+  .advance-search {
+    color: #fff; } }
+
+.advance-search ::-webkit-input-placeholder {
+  color: #5b86d7; }
+
+.advance-search :-ms-input-placeholder {
+  color: #5b86d7; }
+
+.advance-search ::-moz-placeholder {
+  color: #5b86d7; }
+
+.advance-search :-moz-placeholder {
+  color: #5b86d7; }
+
+.advance-search .select2-container--default .select2-selection .select2-selection__arrow b {
+  border-color: #a1b4e6 transparent transparent transparent; }
+
+.advance-search .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+  border-color: transparent transparent #a1b4e6 transparent; }
+
+@media (min-width: 768px) {
+  .advance-search-1 {
+    box-shadow: 0 0 11px rgba(1, 1, 1, 0.11); } }
+
+@media (min-width: 768px) {
+  .advance-search-2 .search-form-top-fields {
+    border-color: #d9e0eb; } }
+
+.search-form-header {
+  background-color: #f2f5fa; }
+
+@media (min-width: 768px) {
+  .search-form-top-fields input, .search-form-top-fields .select2-container--default .select2-selection--single .select2-selection__rendered {
+    border-right-color: #d6dde9; }
+  .search-form-top-fields .select2-container--open .select2-dropdown--below {
+    border-color: #d6dde9; } }
+
+.advance-fields {
+  border-top-color: #d6dde9;
+  box-shadow: 0 8px 10px rgba(1, 1, 1, 0.11); }
+
+@media (min-width: 768px) {
+  .main-navigation-wrapper {
+    background-color: transparent; } }
+
+.slicknav_menu {
+  background: #fff; }
+
+.slicknav_btn {
+  background-color: transparent; }
+
+.slicknav_nav {
+  background: #fff; }
+
+.slicknav_nav a {
+  color: #0e1832; }
+
+.slicknav_nav a:hover, .slicknav_nav a:hover, .slicknav_nav .slicknav_row:hover {
+  background: #203260; }
+
+.slicknav_nav li {
+  border-bottom-color: #e5e8ec; }
+
+.main-navigation .menu-primary a {
+  color: #9eaaca; }
+
+.main-navigation .menu-primary .sub-menu a {
+  color: #0e1832; }
+
+.sub-header .title {
+  color: inherit; }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: inherit; }
+
+.site-title a {
+  color: inherit; }
+
+.sub-header {
+  background-color: #172445; }
+
+.breadcrumb-item.active {
+  color: #4f7dd4; }
+
+.sub-footer {
+  color: #2e488a; }
+
+.sub-footer p:before {
+  background-color: #2e488a; }
+
+.sub-footer a {
+  color: inherit; }
+
+#scroll-to-top {
+  border-color: #ff6363; }
+
+.footer, .sub-footer p span {
+  background-color: #1a284d; }
+
+.home-carousel .property-location {
+  color: #dadde5; }
+
+.home-carousel .property-price, .home-carousel .advance-search input, .advance-search .home-carousel input, .home-carousel .advance-search .select2-container--default .select2-selection--single .select2-selection__rendered, .advance-search .select2-container--default .select2-selection--single .home-carousel .select2-selection__rendered, .home-carousel .advance-btn, .home-carousel .search-features-list .title, .search-features-list .home-carousel .title, .home-carousel .search-features-list label, .search-features-list .home-carousel label, .home-carousel .footer, .home-carousel .testimonial-carousel-two .testimonial .author-info span, .testimonial-carousel-two .testimonial .author-info .home-carousel span, .home-carousel .tabs-nav-list li, .tabs-nav-list .home-carousel li, .home-carousel .agent-carousel-content span, .agent-carousel-content .home-carousel span, .home-carousel .single-agent-content span, .single-agent-content .home-carousel span, .home-carousel .user-info-wrapper span, .user-info-wrapper .home-carousel span {
+  color: inherit; }
+
+.home-carousel .property-post:hover, .property-thumb {
+  background-color: #2d4686; }
+
+.property-thumb .property-location {
+  color: #dadde5; }
+
+@media (max-width: 767px) {
+  .property-thumb.active:after {
+    border-top-color: #203260; } }
+
+@media (min-width: 768px) {
+  .property-thumb.active:after {
+    border-left-color: #203260; } }
+
+.partner-carousel .owl-item {
+  border-left-color: #e5e8ec; }
+
+@media (min-width: 992px) {
+  .service-style-one {
+    border-color: #e5e8ec; } }
+
+.service-style-two .service-content-wrap {
+  background-color: #f8f8f8; }
+
+.testimonial-style-three:hover {
+  box-shadow: 0 0 13px rgba(0, 0, 0, 0.2); }
+
+@media (min-width: 992px) {
+  .testimonial-style-three {
+    border-color: #e5e8ec; } }
+
+.testimonial-style-three .author-info span {
+  color: #afb3be; }
+
+.testimonial-style-three .testimonial-content {
+  color: #828388; }
+
+.testimonial-carousel .testimonial-content {
+  color: #828388; }
+
+.testimonial-carousel .testimonial .author-info span {
+  color: #afb3be; }
+
+.contact-infoBox {
+  box-shadow: 0 5px 30px rgba(1, 1, 1, 0.15); }
+
+.contact-infoBox:before {
+  border-top-color: #e5e8ec; }
+
+.contact-infoBox:after {
+  border-top-color: #fff; }
+
+.col-contact-form {
+  background-color: #f8f8f8; }
+
+.col-contact-form .section-order:after {
+  background-color: #0e1832; }
+
+@media (min-width: 1200px) {
+  .contact-form-on-map .contact-form {
+    background-color: #203260; }
+  .contact-form-on-map .title, .contact-form-on-map .contact-form .status.error, .contact-form-on-map .contact-form label.error {
+    color: #fff; } }
+
+.login-modal .modal-title {
+  color: inherit; }
+
+.login-modal .modal-content {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45); }
+
+.facebook-login {
+  background-color: #4468a5;
+  border-color: #4468a5; }
+
+.facebook-login:hover {
+  background-color: #2e466f;
+  border-color: #2e466f; }
+
+.twitter-login {
+  background-color: #00aced;
+  border-color: #00aced; }
+
+.twitter-login:hover {
+  background-color: #0074a1;
+  border-color: #0074a1; }
+
+.google-login {
+  background-color: #d34836;
+  border-color: #d34836; }
+
+.google-login:hover {
+  background-color: #b03626;
+  border-color: #b03626; }
+
+.blog-post .entry-summary, .blog-post-grid .entry-summary {
+  border-bottom-color: #e5e8ec; }
+
+.entry-content blockquote {
+  color: #0e1832; }
+
+.entry-share-this {
+  border-top-color: #e5e8ec;
+  border-bottom-color: #e5e8ec; }
+
+.about-bio {
+  border-bottom-color: #e5e8ec; }
+
+/*--------------------------------------------------------------
+/* Comments
+--------------------------------------------------------------*/
+.comment-list {
+  border-bottom-color: #e5e8ec; }
+
+.property-view-btn {
+  color: #96989f; }
+
+.property-label a.hot, .property-label span.hot {
+  background-color: #ff1717; }
+
+.property-label a.featured, .property-label span.featured {
+  background-color: #ff6363; }
+
+.property-actions-wrap .action-btn {
+  color: #afb3be; }
+
+.property-location {
+  color: #afb3be; }
+
+.property-footer {
+  border-top-color: #e5e8ec; }
+
+@media (min-width: 1200px) {
+  .property-post-list-fullwidth .property-summary {
+    border-left-color: #e5e8ec;
+    border-right-color: #e5e8ec; } }
+
+.property-detail p {
+  color: #5c5e64; }
+
+.features-list > li {
+  color: #9ba0a4; }
+
+.features-list > li a {
+  color: inherit; }
+
+.additional-details-list {
+  background-color: #f4f6f8; }
+
+.additional-details-list > li {
+  border-bottom-color: #e6e9ec;
+  color: #788894; }
+
+.property-floor-plan .toggle-header {
+  border-color: #f4f6f8;
+  background-color: #f4f6f8; }
+
+.property-floor-plan .toggle-sections.opened .toggle-header {
+  border-color: #f4f6f8;
+  background-color: #f4f6f8; }
+
+.property-google-map-loader {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+
+.property-google-map .property-infoBox:before {
+  border-top-color: #e5e8ec; }
+
+.property-google-map .property-infoBox:after {
+  border-top-color: #fff; }
+
+.checkbox-wrap label:before {
+  border-color: #e5e8ec; }
+
+.single-detail .fa {
+  background-color: #e5e8ec;
+  color: #0e1832; }
+
+.property-compare .ion-checkmark {
+  color: green; }
+
+.property-compare ul li:nth-child(2n) {
+  background-color: #f2f5fa; }
+
+@media (min-width: 576px) {
+  .property-compare-head.stick {
+    background-color: #fff; } }
+
+.property-compare ul li, .compare-property p {
+  color: #2d4686; }
+
+.compare-property p span {
+  color: #afb3be; }
+
+.property-compare-container {
+  border-left-color: #e5e8ec; }
+
+.property-compare-container.show {
+  box-shadow: -1px 0 10px rgba(0, 0, 0, 0.2); }
+
+.property-compare-container::-webkit-scrollbar-thumb {
+  background: #ff6363; }
+
+.agent:hover {
+  box-shadow: 0 0 13px rgba(0, 0, 0, 0.2); }
+
+.upload-btn {
+  background-color: #cecfd3;
+  border-color: #cecfd3; }
+
+.edit-profile-form .title, .add-property-form .title {
+  border-bottom-color: #e5e8ec; }
+
+.property-status.active {
+  color: #2cce47; }
+
+.property-status.pending {
+  color: #0013ca; }
+
+.property-status.expired {
+  color: #fe0000; }
+
+.property-actions {
+  border-top-color: #e5e8ec; }
+
+.view-property {
+  background-color: #21b65a;
+  border-color: #21b65a; }
+
+.edit-property {
+  background-color: #2196f3;
+  border-color: #2196f3; }

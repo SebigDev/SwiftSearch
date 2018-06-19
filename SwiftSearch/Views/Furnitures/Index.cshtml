@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SwiftSearch.Data.Furniture>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurniturePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureDealer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FurnitureImage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureColor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurniturePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureDealer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FurnitureImage)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -50,6 +50,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -200,22 +206,153 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FurnituresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VehiclesController.cs" />
+    <Compile Include="DashedRouteHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IFunitureRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IVehicleRepository.cs" />
+    <Compile Include="LowercaseDashedRoute.cs" />
+    <Compile Include="Migrations\201806180215391_InitialMigration.cs" />
+    <Compile Include="Migrations\201806180215391_InitialMigration.Designer.cs">
+      <DependentUpon>201806180215391_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181244375_CarImageUpdated.cs" />
+    <Compile Include="Migrations\201806181244375_CarImageUpdated.Designer.cs">
+      <DependentUpon>201806181244375_CarImageUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806191258198_FurnitureUpdated.cs" />
+    <Compile Include="Migrations\201806191258198_FurnitureUpdated.Designer.cs">
+      <DependentUpon>201806191258198_FurnitureUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="MVCRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\FunitureRepository.cs" />
+    <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="Repository\VehicleRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="FrondEnd\css\font-awesome.min.css" />
+    <Content Include="FrondEnd\css\ionicons.min.css" />
+    <Content Include="FrondEnd\css\main.css" />
+    <Content Include="FrondEnd\css\theme.css" />
+    <Content Include="FrondEnd\fonts\fontawesome-webfont3e6e.html" />
+    <Content Include="FrondEnd\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="FrondEnd\fonts\ionicons28b5.svg" />
+    <Content Include="FrondEnd\images\demo\agents\1.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\2.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\3.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\4.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\c1.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\c2.jpg" />
+    <Content Include="FrondEnd\images\demo\agents\l1.html" />
+    <Content Include="FrondEnd\images\demo\blog\1.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\2.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\3.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\4.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\5.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\avatar.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\1.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\2.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\3.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\4.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\5.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\6.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\7.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\8.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\grid\9.jpg" />
+    <Content Include="FrondEnd\images\demo\blog\single.jpg" />
+    <Content Include="FrondEnd\images\demo\home\cta.jpg" />
+    <Content Include="FrondEnd\images\demo\partners\1.png" />
+    <Content Include="FrondEnd\images\demo\partners\2.png" />
+    <Content Include="FrondEnd\images\demo\partners\3.png" />
+    <Content Include="FrondEnd\images\demo\partners\4.png" />
+    <Content Include="FrondEnd\images\demo\partners\5.png" />
+    <Content Include="FrondEnd\images\demo\partners\6.png" />
+    <Content Include="FrondEnd\images\demo\partners\7.png" />
+    <Content Include="FrondEnd\images\demo\property\1.jpg" />
+    <Content Include="FrondEnd\images\demo\property\2.jpg" />
+    <Content Include="FrondEnd\images\demo\property\3.jpg" />
+    <Content Include="FrondEnd\images\demo\property\4.jpg" />
+    <Content Include="FrondEnd\images\demo\property\5.jpg" />
+    <Content Include="FrondEnd\images\demo\property\6.jpg" />
+    <Content Include="FrondEnd\images\demo\property\floor-plan-2.jpg" />
+    <Content Include="FrondEnd\images\demo\property\floor-plan.jpg" />
+    <Content Include="FrondEnd\images\demo\property\larger-1.jpg" />
+    <Content Include="FrondEnd\images\demo\property\larger-2.jpg" />
+    <Content Include="FrondEnd\images\demo\property\video.jpg" />
+    <Content Include="FrondEnd\images\demo\services\large.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\1.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\2.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v2-1.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v2-2.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v2-3.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v3-1.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v3-2.jpg" />
+    <Content Include="FrondEnd\images\demo\slider\v3-3.jpg" />
+    <Content Include="FrondEnd\images\demo\testimonials\1.jpg" />
+    <Content Include="FrondEnd\images\demo\testimonials\2.jpg" />
+    <Content Include="FrondEnd\images\demo\testimonials\3.jpg" />
+    <Content Include="FrondEnd\images\demo\testimonials\large-2.jpg" />
+    <Content Include="FrondEnd\images\demo\testimonials\large.jpg" />
+    <Content Include="FrondEnd\images\demo\widget\1.jpg" />
+    <Content Include="FrondEnd\images\demo\widget\2.jpg" />
+    <Content Include="FrondEnd\images\demo\widget\3.jpg" />
+    <Content Include="FrondEnd\images\demo\widget\ad.jpg" />
+    <Content Include="FrondEnd\images\icons\ajax-loader.gif" />
+    <Content Include="FrondEnd\images\icons\load.gif" />
+    <Content Include="FrondEnd\images\icons\search-lense.png" />
+    <Content Include="FrondEnd\images\logo.png" />
+    <Content Include="FrondEnd\js\add-property.js" />
+    <Content Include="FrondEnd\js\bootstrap.min.js" />
+    <Content Include="FrondEnd\js\contact-map.js" />
+    <Content Include="FrondEnd\js\fakeLoader\fakeLoader.min.js" />
+    <Content Include="FrondEnd\js\flexslider\flexslider.css" />
+    <Content Include="FrondEnd\js\flexslider\fonts\flexslider-icon.svg" />
+    <Content Include="FrondEnd\js\flexslider\jquery.flexslider-min.js" />
+    <Content Include="FrondEnd\js\infobox.js" />
+    <Content Include="FrondEnd\js\jquery-3.2.1.min.js" />
+    <Content Include="FrondEnd\js\jquery-migrate-3.0.1.js" />
+    <Content Include="FrondEnd\js\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="FrondEnd\js\jquery.form.min.js" />
+    <Content Include="FrondEnd\js\jquery.validate.min.js" />
+    <Content Include="FrondEnd\js\lightcase\css\lightcase.css" />
+    <Content Include="FrondEnd\js\lightcase\fonts\lightcaseeead.svg" />
+    <Content Include="FrondEnd\js\lightcase\js\lightcase.js" />
+    <Content Include="FrondEnd\js\lightcase\vendor\jQuery\jquery.events.touch.js" />
+    <Content Include="FrondEnd\js\login-modal.js" />
+    <Content Include="FrondEnd\js\owl.carousel\assets\owl.carousel.min.css" />
+    <Content Include="FrondEnd\js\owl.carousel\assets\owl.theme.default.min.css" />
+    <Content Include="FrondEnd\js\owl.carousel\assets\owl.video.play.png" />
+    <Content Include="FrondEnd\js\owl.carousel\owl.carousel.min.js" />
+    <Content Include="FrondEnd\js\popper.min.js" />
+    <Content Include="FrondEnd\js\properties-map.js" />
+    <Content Include="FrondEnd\js\property-single-map.js" />
+    <Content Include="FrondEnd\js\ResizeSensor.js" />
+    <Content Include="FrondEnd\js\scripts.js" />
+    <Content Include="FrondEnd\js\select2\css\select2.min.css" />
+    <Content Include="FrondEnd\js\select2\js\select2.min.js" />
+    <Content Include="FrondEnd\js\slicknav\jquery.slicknav.min.js" />
+    <Content Include="FrondEnd\js\slicknav\slicknav.min.css" />
+    <Content Include="FrondEnd\js\sticky-sidebar.min.js" />
+    <Content Include="FrondEnd\switcher\switcher.css" />
+    <Content Include="FrondEnd\switcher\switcher.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -223,6 +360,29 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrondEnd\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="FrondEnd\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="FrondEnd\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="FrondEnd\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="FrondEnd\fonts\ionicons28b5.eot" />
+    <Content Include="FrondEnd\fonts\ionicons28b5.ttf" />
+    <Content Include="FrondEnd\fonts\ionicons28b5.woff" />
+    <Content Include="FrondEnd\js\flexslider\fonts\flexslider-icon.eot" />
+    <Content Include="FrondEnd\js\flexslider\fonts\flexslider-icon.ttf" />
+    <Content Include="FrondEnd\js\flexslider\fonts\flexslider-icon.woff" />
+    <Content Include="FrondEnd\js\flexslider\fonts\flexslider-icond41d.eot" />
+    <Content Include="FrondEnd\js\lightcase\fonts\lightcaseeead.eot" />
+    <Content Include="FrondEnd\js\lightcase\fonts\lightcaseeead.ttf" />
+    <Content Include="FrondEnd\js\lightcase\fonts\lightcaseeead.woff" />
+    <Content Include="FrondEnd\fonts\Ubuntu-B.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-BI.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-C.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-L.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-LI.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-M.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-MI.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-R.ttf" />
+    <Content Include="FrondEnd\fonts\Ubuntu-RI.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -234,6 +394,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -247,7 +409,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -268,9 +430,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Vehicles\Create.cshtml" />
+    <Content Include="Views\Vehicles\Edit.cshtml" />
+    <Content Include="Views\Vehicles\Delete.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\Vehicles\Details.cshtml" />
+    <Content Include="Views\Furnitures\Create.cshtml" />
+    <Content Include="Views\Furnitures\Index.cshtml" />
+    <Content Include="Views\Furnitures\Edit.cshtml" />
+    <Content Include="Views\Furnitures\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PhotoUploads\Furnitures\" />
+    <Folder Include="PhotoUploads\Vehicles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -284,6 +459,23 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwiftSearch.Data\SwiftSearch.Data.csproj">
+      <Project>{0bce7581-8eb8-442e-9b20-dd61452bd40d}</Project>
+      <Name>SwiftSearch.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806180215391_InitialMigration.resx">
+      <DependentUpon>201806180215391_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181244375_CarImageUpdated.resx">
+      <DependentUpon>201806181244375_CarImageUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806191258198_FurnitureUpdated.resx">
+      <DependentUpon>201806191258198_FurnitureUpdated.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

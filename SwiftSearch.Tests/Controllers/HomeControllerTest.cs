@@ -19,7 +19,7 @@ namespace SwiftSearch.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(string sortOn, string orderBy, string pSortOn, string keyword, int ? page) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SwiftSearch.Data.Vehicle>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CarName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarDealer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarImage)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarDealer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarImage)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
