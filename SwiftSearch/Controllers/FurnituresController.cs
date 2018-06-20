@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace SwiftSearch.Controllers
 {
@@ -24,7 +25,32 @@ namespace SwiftSearch.Controllers
             var list = await _unitOfWork.Furniture.GetAllDataAsync();
             return View(list);
         }
+        public ActionResult Listing(string sortOn, string orderBy, string pSortOn, int? page)
+        {
+            int recordsPerPage = 3;
+            if (!page.HasValue)
+            {
+                page = 1; // set initial page value
+                if (string.IsNullOrWhiteSpace(orderBy) || orderBy.Equals("asc"))
+                {
+                    orderBy = "desc";
+                }
+                else
+                {
+                    orderBy = "asc";
+                }
+            }
 
+
+
+            ViewBag.OrderBy = orderBy;
+            ViewBag.SortOn = sortOn;
+           
+            var list = _unitOfWork.Furniture.GetFurnituresBySearch().ToList();
+            
+            var finalList = list.ToPagedList(page.Value, recordsPerPage);
+            return View(finalList);
+        }
         // GET: Furnitures/Details/5
         public async Task<ActionResult> Details(int id)
         {
@@ -45,9 +71,8 @@ namespace SwiftSearch.Controllers
 
                 if (ModelState.IsValid)
                 {
-                
 
-                var fileName = Path.GetFileNameWithoutExtension(furniture.ImageFile.FileName);
+                    var fileName = Path.GetFileNameWithoutExtension(furniture.ImageFile.FileName);
                     var extension = Path.GetExtension(furniture.ImageFile.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                     furniture.FurnitureImage = "~/PhotoUploads/Furnitures/" + fileName;

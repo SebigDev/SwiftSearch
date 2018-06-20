@@ -5065,6 +5065,7 @@ img#progress-loader {
 	height: 4.4rem;
 	vertical-align: middle; }
   .site-branding a, .site-branding img {
+	  font-family:Ubuntu-R;
 	display: block; } }
 
 @media (min-width: 1200px) {
@@ -5116,6 +5117,7 @@ img#progress-loader {
 
 .main-navigation .menu-primary, .main-navigation .menu-primary ul {
   list-style: none;
+  font-family:Ubuntu-R;
   padding: 0;
   margin: 0; }
 

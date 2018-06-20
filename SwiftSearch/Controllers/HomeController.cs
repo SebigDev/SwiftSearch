@@ -24,7 +24,7 @@ namespace SwiftSearch.Controllers
         public ActionResult Index(string sortOn, string orderBy,string pSortOn, string keyword, int? page)
         {
           
-            int recordsPerPage = 6;
+            int recordsPerPage = 3;
             if (!page.HasValue)
             {
                 page = 1; // set initial page value
@@ -38,10 +38,7 @@ namespace SwiftSearch.Controllers
                 }
             }
 
-            //if (!string.IsNullOrWhiteSpace(sortOn) && !sortOn.Equals(pSortOn,StringComparison.CurrentCultureIgnoreCase))
-            //{
-            //    orderBy = "asc";
-            //}
+           
 
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
@@ -50,11 +47,11 @@ namespace SwiftSearch.Controllers
             var list = _unitOfWork.Vehicle.GetVehiclesBySearch();
             var list2 = _unitOfWork.Furniture.GetFurnituresBySearch();
  
-            if (!string.IsNullOrWhiteSpace(keyword) && !keyword.Equals(keyword, StringComparison.CurrentCultureIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
               
                 list = list.Where(
-                                  f => f.CarName.ToLowerInvariant().Contains(keyword) ||
+                                  f => f.CarName.ToLower().Contains(keyword) ||
                                   f.CarModel.ToLower().Contains(keyword) ||
                                   f.CarDealer.ToLower().Contains(keyword) ||
                                   f.CarPrice.ToString().ToLower().Contains(keyword) ||

@@ -6,12 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewBag.Title</title>
+    <title>SwiftSearch - @ViewBag.Title</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-
+   
     <!-- Stylesheet -->
     <link href="~/FrondEnd/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/FrondEnd/css/ionicons.min.css" rel="stylesheet" />
@@ -43,96 +40,39 @@
                     <div class="col-md-7 col-lg-9">
                         <div class="main-navigation-wrapper clearfix">
                             <a id="add-property-link" class="add-property-link" href="add-property.html">
-                                <i class="ion-ios-plus-outline"></i> Add Property
+                                <i class="ion-ios-plus-outline"></i> 
                             </a>
                             <nav id="main-navigation" class="main-navigation">
                                 <div class="menu-primary-container">
                                     <ul class="menu-primary clearfix">
                                         <li class="current-menu-item menu-item-has-children">
-                                            <a href="index.html">Home</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="index.html">Home One</a></li>
-                                                <li><a href="home-2.html">Home Two</a></li>
-                                                <li><a href="home-3.html">Home Three</a></li>
-                                            </ul>
+                                            <a href="@Url.Action("Index","Home")">Home</a>
                                         </li>
                                         <li>
-                                            <a href="property-carousels.html">Listing</a>
+                                            <a href="#">Listing</a>
                                             <ul class="sub-menu">
                                                 <li>
-                                                    <a href="property-grid.html">Grid</a>
-                                                    <ul class="sub-menu">
-                                                        <li><a href="property-grid.html">Grid Standard</a></li>
-                                                        <li><a href="property-grid-fullwidth.html">Grid Fullwidth</a></li>
-                                                    </ul>
+                                                    <a href="@Url.Action("Listing","Vehicles")">Vehicles</a>
+                                                  
                                                 </li>
                                                 <li>
-                                                    <a href="property-list.html">List</a>
-                                                    <ul class="sub-menu">
-                                                        <li><a href="property-list.html">List Standard</a></li>
-                                                        <li><a href="property-list-fullwidth.html">List Fullwidth</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="property-list-map.html">Map</a>
-                                                    <ul class="sub-menu">
-                                                        <li><a href="property-grid-map.html">Grid Standard</a></li>
-                                                        <li><a href="property-grid-map-fullwidth.html">Grid Fullwidth</a></li>
-                                                        <li><a href="property-grid-map-vertical.html">Grid Vertical</a></li>
-                                                        <li><a href="property-grid-map-vertical-2.html">Grid Vertical Ajax</a></li>
-                                                        <li><a href="property-list-map.html">List Standard</a></li>
-                                                        <li><a href="property-list-map-fullwidth.html">List Fullwidth</a></li>
-                                                        <li><a href="property-list-map-vertical.html">List Vertical</a></li>
-                                                        <li><a href="property-list-map-vertical-2.html">List Vertical Ajax</a></li>
-                                                    </ul>
+                                                    <a href="@Url.Action("Listing","Furnitures")">Furnitures</a>
                                                 </li>
                                             </ul>
                                         </li>
+                                        
                                         <li>
-                                            <a href="single-property.html">Properties</a>
+                                            <a href="#">Accounts</a>
                                             <ul class="sub-menu">
-                                                <li><a href="single-property.html">Single</a></li>
-                                                <li><a href="single-property-2.html">Single Two</a></li>
-                                                <li><a href="single-property-wide.html">Single Wide</a></li>
-                                                <li><a href="property-carousels.html">Carousels</a></li>
-                                                <li><a href="property-compare.html">Compare</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="agents.html">Agents</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="agents.html">Agent Listing</a></li>
-                                                <li><a href="agent-single.html">Agent Single</a></li>
-                                                <li><a href="agent-single-fullwidth.html">Agent Single Fullwidth</a></li>
-                                                <li><a href="agents-shortcodes.html">Agent Shortcodes</a></li>
+                                                <li><a href="@Url.Action("Login","Account")">Login</a></li>
+                                                <li><a href="@Url.Action("Login","Account")">Register</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
-                                            <a href="#">Pages</a>
+                                            <a href="#">Info</a>
                                             <ul class="sub-menu">
-                                                <li><a href="page.html">Page</a></li>
-                                                <li><a href="full-width.html">Fullwidth</a></li>
-                                                <li><a href="faq.html">FAQ</a></li>
-                                                <li><a href="partners-shortcodes.html">Partners</a></li>
-                                                <li><a href="services-shortcodes.html">Services</a></li>
-                                                <li><a href="testimonials-shortcodes.html">Testimonials</a></li>
-                                                <li><a href="edit-profile.html">Edit Profile</a></li>
-                                                <li><a href="my-properties.html">My Properties</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="#">Blog</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="blog.html">Blog Standard</a></li>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="single.html">Blog Single</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="contact.html">Contact</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="contact.html">Contact One</a></li>
-                                                <li><a href="contact-2.html">Contact Two</a></li>
+                                                <li><a href="@Url.Action("Contact","Home")">Contact Us</a></li>
+                                                <li><a href="@Url.Action("About","Home")">About</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -153,7 +93,7 @@
                             <h2 class="widget-title d-none">About Us</h2>
                             <div class="textwidget">
                                 <div class="footer-logo-widget">
-                                    <a href="index.html"><img src="images/logo.png" alt="Logo"></a>
+                                    <a href="index.html"><img src="~/FrondEnd/images/logo.png" alt="Logo"></a>
                                     <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
                                 </div>
                             </div>

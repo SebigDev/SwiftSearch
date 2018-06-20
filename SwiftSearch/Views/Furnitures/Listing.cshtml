@@ -1,0 +1,74 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SwiftSearch.Data.Furniture>
+@{
+    ViewBag.Title = "Listing";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<main id="main" class="main">
+
+
+    <div class="container row-padding">
+        <div class="row">
+            <div class="col-md-8">
+                <header class="section-header">
+
+                    <h2 class="section-title">Furniture Listings</h2>
+                </header>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <article class="property-post property-post-grid clearfix">
+                    <div class="property-thumbnail">
+                        <a href="@Url.Action("Details","Vehicles", new { id=item.ID})"><img src="@Url.Content(item.FurnitureImage)" alt="Property"></a>
+                        <div class="property-label"><a href="#">For Sale</a></div>
+                    </div>
+                    <div class="property-wrap">
+                        <header class="property-header clearfix">
+                            <div class="property-actions-wrap">
+                                <span class="action-btn property-gallery-images" data-toggle="tooltip" data-placement="top" title="3 Photos"><i class="fa fa-camera"></i></span>
+                                <span class="action-btn property-add-to-fav" data-toggle="tooltip" data-placement="top" title="Add to Favorite"><i class="fa fa-heart"></i></span>
+                                <span class="action-btn property-add-to-compare" data-property-id="12" data-toggle="tooltip" data-placement="top" title="Add to Compare"><i class="fa fa-exchange"></i></span>
+                            </div>
+                            <h2 class="property-title">
+                                <a href="single-property.html">@item.FurnitureName</a>
+                            </h2>
+                            <p class="property-location">@item.FurnitureAddress</p>
+
+                        </header>
+                        <ul class="property-meta list-unstyled">
+                            <li>@item.FurnitureModel</li>
+
+                        </ul>
+                        <footer class="property-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="property-price"><span>#</span>@item.FurniturePrice.ToString("#,##,00.00")</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="@Url.Action("Details","Furnitures", new { id = item.ID})" class="btn btn-primary">More Info</a>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+}
+            </div>
+        </div>
+        </div>
+    </main>
+
+            <div class="pagedList" style="margin:5%">
+                @Html.PagedListPager((Model), page => Url.Action("Index", new
+                {
+                    page,
+                    sortOn = ViewBag.SortOn,
+                    orderBy = ViewBag.OrderBy,
+                    pSortOn = ViewBag.SortOn,
+                    keyword = ViewBag.Keyword
+                }),
+                                  PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
