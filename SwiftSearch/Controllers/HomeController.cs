@@ -1,6 +1,7 @@
 ﻿
 using PagedList;
 using SwiftSearch.Data;
+using SwiftSearch.Interfaces;
 using SwiftSearch.Models;
 using SwiftSearch.Repository;
 using System;
@@ -13,7 +14,7 @@ namespace SwiftSearch.Controllers
 {
     public class HomeController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public HomeController()
         {

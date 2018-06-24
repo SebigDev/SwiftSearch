@@ -11,5 +11,6 @@ namespace SwiftSearch.Interfaces
     {
        IVehicleRepository Vehicle { get; }
         IFurnitureRepository Furniture { get; }
+        void Complete();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PagedList;
 using SwiftSearch.Data;
+using SwiftSearch.Interfaces;
 using SwiftSearch.Models;
 using SwiftSearch.Repository;
 using System;
@@ -15,13 +16,14 @@ namespace SwiftSearch.Controllers
 {
     public class VehiclesController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public VehiclesController()
         {
             _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
 
         }
+       
         // GET: Vehicles
         public async Task<ActionResult> Index()
         {
@@ -52,6 +54,26 @@ namespace SwiftSearch.Controllers
 
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             return View(finalList);
+        }
+
+        //GET: Vehicle/MakePayment
+
+        public async Task<ActionResult> MakePayment(Vehicle model)
+        {
+            var payment = _unitOfWork.Vehicle.MakeVehiclePayment();
+            var myCar = await _unitOfWork.Vehicle.GetAllDataAsync();
+            List<Vehicle> listOfVehicles = new List<Vehicle>();
+            foreach(var list in myCar)
+            {
+                listOfVehicles.Add(list);
+            }
+            ViewBag.ListOfVehicle = listOfVehicles;
+           
+            if(payment != null)
+            {
+                return RedirectToAction("Paystack", model);
+            }
+            return View(payment);
         }
         // GET: Vehicles/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -86,7 +108,7 @@ namespace SwiftSearch.Controllers
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
                 _unitOfWork.Vehicle.Insert(vehicle);
-                _unitOfWork.Vehicle.Save();
+                _unitOfWork.Complete();            
                 return RedirectToAction("Index");
                 }  
             return View(vehicle);
@@ -113,7 +135,7 @@ namespace SwiftSearch.Controllers
             {
                 // TODO: Add update logic here
 
-               await _unitOfWork.Vehicle.FindAsync(id);
+                await _unitOfWork.Vehicle.FindAsync(id);
                 var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
                 var extension = Path.GetExtension(vehicle.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
@@ -121,7 +143,7 @@ namespace SwiftSearch.Controllers
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
                 _unitOfWork.Vehicle.Update(vehicle);
-                _unitOfWork.Vehicle.Save();
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
             catch
@@ -140,12 +162,12 @@ namespace SwiftSearch.Controllers
 
         // POST: Vehicles/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirm(int id, Vehicle vehicle)
+        public ActionResult DeleteConfirmed(int id, Vehicle vehicle)
         {
            
             // TODO: Add delete logic here
              _unitOfWork.Vehicle.Delete(id);
-             _unitOfWork.Vehicle.Save();
+             _unitOfWork.Complete();
              return RedirectToAction("Index");
            
         }

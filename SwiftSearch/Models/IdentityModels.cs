@@ -33,5 +33,6 @@ namespace SwiftSearch.Models
 
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Furniture> Furnitures { get; set; }
+
     }
 }

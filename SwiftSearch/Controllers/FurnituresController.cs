@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using SwiftSearch.Interfaces;
 
 namespace SwiftSearch.Controllers
 {
     public class FurnituresController : Controller
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public FurnituresController()
         {
             _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
@@ -49,6 +50,7 @@ namespace SwiftSearch.Controllers
             var list = _unitOfWork.Furniture.GetFurnituresBySearch().ToList();
             
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
+            
             return View(finalList);
         }
         // GET: Furnitures/Details/5
@@ -79,11 +81,11 @@ namespace SwiftSearch.Controllers
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Furnitures/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
                     _unitOfWork.Furniture.Insert(furniture);
-                    _unitOfWork.Furniture.Save();
+                    _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
            
-            return View();
+            return View(furniture);
         }
 
         // GET: Furnitures/Edit/5
@@ -110,7 +112,7 @@ namespace SwiftSearch.Controllers
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
                     _unitOfWork.Furniture.Update(furniture);
-                    _unitOfWork.Furniture.Save();
+                    _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index");
@@ -131,7 +133,7 @@ namespace SwiftSearch.Controllers
 
         // POST: Furnitures/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirm(int id, Furniture furniture)
+        public ActionResult DeleteConfirmed(int id, Furniture furniture)
         {
             try
             {

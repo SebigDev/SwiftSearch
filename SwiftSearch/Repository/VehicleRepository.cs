@@ -14,14 +14,17 @@ namespace SwiftSearch.Repository
     public class VehicleRepository : IVehicleRepository
     {
         private SwiftSearchDbContext _context;
+        
         public VehicleRepository(SwiftSearchDbContext context)
         {
             this._context = context;
+            //this._dbSet = context.Set<Vehicle>();
         }
 
         public IEnumerable<Vehicle> GetVehiclesBySearch()
         {
             var vehicle = _context.Vehicles.ToList();
+           // var veh = _dbSet.ToList();
             return vehicle;
                                             
 
@@ -62,5 +65,22 @@ namespace SwiftSearch.Repository
             _context.Entry(obj).State = EntityState.Modified;
         }
 
+        public async Task<Vehicle> MakeVehiclePayment()
+        {
+            var pay = await _context.Vehicles.FirstOrDefaultAsync();
+            var model = new Vehicle
+            {
+                ID = pay.ID,
+                CarName = pay.CarName,
+                CarAddress = pay.CarAddress,
+                CarColor = pay.CarColor,
+                CarDealer = pay.CarDealer,
+                CarPrice = pay.CarPrice,
+                CarModel = pay.CarModel,
+                CarImage = pay.CarImage
+            };
+            return model;
+
+        }
     }
 }

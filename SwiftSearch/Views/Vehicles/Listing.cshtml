@@ -63,7 +63,7 @@
 </main>
 
 <div class="pagedList" style="margin:5%">
-    @Html.PagedListPager((Model), page => Url.Action("Index", new
+    @Html.PagedListPager((Model), page => Url.Action("Listing", new
     {
         page,
         sortOn = ViewBag.SortOn,
@@ -71,5 +71,5 @@
         pSortOn = ViewBag.SortOn,
         keyword = ViewBag.Keyword
     }),
-                           PagedListRenderOptions.ClassicPlusFirstAndLast)
+      PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>

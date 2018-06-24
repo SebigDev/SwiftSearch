@@ -3,6 +3,7 @@ using SwiftSearch.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace SwiftSearch.Repository
@@ -17,12 +18,19 @@ namespace SwiftSearch.Repository
             Vehicle = new VehicleRepository(_context);
             Furniture = new FurnitureRepository(_context);
         }
-        public IVehicleRepository Vehicle { get; protected set; }
+        public IVehicleRepository Vehicle { get; protected set; }   
 
         public IFurnitureRepository Furniture { get; protected set; }
 
+        public void Complete()
+        {
+           _context.SaveChangesAsync();
+        }
+
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
+
 
         protected virtual void Dispose(bool disposing)
         {
@@ -54,6 +62,9 @@ namespace SwiftSearch.Repository
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+      
+
         #endregion
 
 

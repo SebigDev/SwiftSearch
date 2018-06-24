@@ -13,7 +13,6 @@ namespace SwiftSearch.Interfaces
         void Insert(T obj);
         void Update(T obj);
         void Delete(object ID);
-        void Save();
 
     }
 }

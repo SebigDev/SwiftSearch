@@ -40,7 +40,7 @@
                     <div class="col-md-7 col-lg-9">
                         <div class="main-navigation-wrapper clearfix">
                             <a id="add-property-link" class="add-property-link" href="add-property.html">
-                                <i class="ion-ios-plus-outline"></i> 
+                                <i class="ion-ios-plus-outline"></i>
                             </a>
                             <nav id="main-navigation" class="main-navigation">
                                 <div class="menu-primary-container">
@@ -53,14 +53,14 @@
                                             <ul class="sub-menu">
                                                 <li>
                                                     <a href="@Url.Action("Listing","Vehicles")">Vehicles</a>
-                                                  
+
                                                 </li>
                                                 <li>
                                                     <a href="@Url.Action("Listing","Furnitures")">Furnitures</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="#">Accounts</a>
                                             <ul class="sub-menu">
@@ -181,5 +181,9 @@
     <link href="~/FrondEnd/js/select2/css/select2.min.css" rel="stylesheet">
     <link href="~/FrondEnd/js/slicknav/slicknav.min.css" rel="stylesheet">
     <link href="~/FrondEnd/js/lightcase/css/lightcase.css" rel="stylesheet">
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
