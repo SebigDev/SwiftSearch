@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json.Serialization;
+using SwiftSearch.Interfaces;
+using SwiftSearch.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using Unity;
 
 namespace SwiftSearch
 {
@@ -22,6 +25,13 @@ namespace SwiftSearch
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            var container = new UnityContainer();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IVehicleRepository, VehicleRepository>();
+            container.RegisterType<IFurnitureRepository, FurnitureRepository>();
+
+            config.DependencyResolver = new UnityResolver(container);
+
             //Beautifying the API Formatting
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             config.Formatters.JsonFormatter.SerializerSettings.Formatting =
@@ -31,6 +41,7 @@ namespace SwiftSearch
                     new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
                 new MediaTypeHeaderValue("application/json-patch+json"));
+
 
            
         }

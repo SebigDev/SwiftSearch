@@ -65,22 +65,14 @@ namespace SwiftSearch.Repository
             _context.Entry(obj).State = EntityState.Modified;
         }
 
-        public async Task<Vehicle> MakeVehiclePayment()
+        public Vehicle MakeVehiclePayment()
         {
-            var pay = await _context.Vehicles.FirstOrDefaultAsync();
-            var model = new Vehicle
-            {
-                ID = pay.ID,
-                CarName = pay.CarName,
-                CarAddress = pay.CarAddress,
-                CarColor = pay.CarColor,
-                CarDealer = pay.CarDealer,
-                CarPrice = pay.CarPrice,
-                CarModel = pay.CarModel,
-                CarImage = pay.CarImage
-            };
-            return model;
-
+            var pay = _context.Vehicles.FirstOrDefault();
+            List<Vehicle> vehiclesList = new List<Vehicle>();
+            foreach (var list in vehiclesList)
+                vehiclesList.Add(list);
+            return pay;
+          
         }
     }
 }

@@ -1,15 +1,10 @@
 ﻿using PagedList;
 using SwiftSearch.Data;
 using SwiftSearch.Interfaces;
-using SwiftSearch.Models;
-using SwiftSearch.Repository;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SwiftSearch.Controllers
@@ -18,16 +13,16 @@ namespace SwiftSearch.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public VehiclesController()
+        public VehiclesController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
+            _unitOfWork = unitOfWork;
 
         }
        
         // GET: Vehicles
         public async Task<ActionResult> Index()
         {
-           var allData = await _unitOfWork.Vehicle.GetAllDataAsync();
+           var allData = await _unitOfWork.VehicleRepo.GetAllDataAsync();
             return View(allData);
         
         }
@@ -50,7 +45,7 @@ namespace SwiftSearch.Controllers
 
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
-            var list = _unitOfWork.Vehicle.GetVehiclesBySearch().ToList();
+            var list = _unitOfWork.VehicleRepo.GetVehiclesBySearch().ToList();
 
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             return View(finalList);
@@ -58,22 +53,10 @@ namespace SwiftSearch.Controllers
 
         //GET: Vehicle/MakePayment
 
-        public async Task<ActionResult> MakePayment(Vehicle model)
+        public ActionResult MakePayment(Vehicle model)
         {
-            var payment = _unitOfWork.Vehicle.MakeVehiclePayment();
-            var myCar = await _unitOfWork.Vehicle.GetAllDataAsync();
-            List<Vehicle> listOfVehicles = new List<Vehicle>();
-            foreach(var list in myCar)
-            {
-                listOfVehicles.Add(list);
-            }
-            ViewBag.ListOfVehicle = listOfVehicles;
-           
-            if(payment != null)
-            {
-                return RedirectToAction("Paystack", model);
-            }
-            return View(payment);
+            var listPay = _unitOfWork.VehicleRepo.MakeVehiclePayment();
+            return View(listPay);
         }
         // GET: Vehicles/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -82,7 +65,7 @@ namespace SwiftSearch.Controllers
             {
                 return HttpNotFound();
             }
-            var vehicleDetail = await _unitOfWork.Vehicle.FindAsync(id);
+            var vehicleDetail = await _unitOfWork.VehicleRepo.FindAsync(id);
             return View(vehicleDetail);
         }
 
@@ -107,7 +90,7 @@ namespace SwiftSearch.Controllers
                 vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
-                _unitOfWork.Vehicle.Insert(vehicle);
+                _unitOfWork.VehicleRepo.Insert(vehicle);
                 _unitOfWork.Complete();            
                 return RedirectToAction("Index");
                 }  
@@ -121,7 +104,7 @@ namespace SwiftSearch.Controllers
             {
                 return HttpNotFound();
             }
-            var vehicleEdit = await _unitOfWork.Vehicle.FindAsync(id);
+            var vehicleEdit = await _unitOfWork.VehicleRepo.FindAsync(id);
     
             return View(vehicleEdit);
         }
@@ -135,14 +118,14 @@ namespace SwiftSearch.Controllers
             {
                 // TODO: Add update logic here
 
-                await _unitOfWork.Vehicle.FindAsync(id);
+                await _unitOfWork.VehicleRepo.FindAsync(id);
                 var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
                 var extension = Path.GetExtension(vehicle.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
-                _unitOfWork.Vehicle.Update(vehicle);
+                _unitOfWork.VehicleRepo.Update(vehicle);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
@@ -156,7 +139,7 @@ namespace SwiftSearch.Controllers
         // GET: Vehicles/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var deleteVehicle = await _unitOfWork.Vehicle.FindAsync(id);
+            var deleteVehicle = await _unitOfWork.VehicleRepo.FindAsync(id);
             return View(deleteVehicle);
         }
 
@@ -164,11 +147,19 @@ namespace SwiftSearch.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id, Vehicle vehicle)
         {
-           
-            // TODO: Add delete logic here
-             _unitOfWork.Vehicle.Delete(id);
-             _unitOfWork.Complete();
-             return RedirectToAction("Index");
+            try
+            {
+
+                // TODO: Add delete logic here
+                _unitOfWork.VehicleRepo.Delete(id);
+                _unitOfWork.Complete();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+
+                throw new ArgumentException(String.Format($"The {vehicle.CarName} could not be deleted"));
+            }
            
         }
     }

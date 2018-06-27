@@ -9,8 +9,8 @@ namespace SwiftSearch.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-       IVehicleRepository Vehicle { get; }
-        IFurnitureRepository Furniture { get; }
+       IVehicleRepository VehicleRepo { get; }
+        IFurnitureRepository FurnitureRepo { get; }
         void Complete();
     }
 }

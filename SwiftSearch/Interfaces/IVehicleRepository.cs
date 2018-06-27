@@ -10,7 +10,7 @@ namespace SwiftSearch.Interfaces
     public interface IVehicleRepository : IRepository<Vehicle>
     {
         IEnumerable<Vehicle> GetVehiclesBySearch();
-        Task<Vehicle> MakeVehiclePayment();
+        Vehicle MakeVehiclePayment();
         
     }
 }

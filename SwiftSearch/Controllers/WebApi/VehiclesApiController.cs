@@ -15,9 +15,9 @@ namespace SwiftSearch.Controllers.WebApi
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public VehiclesApiController()
+        public VehiclesApiController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
+            _unitOfWork = unitOfWork;
         }
         // GET: api/Vehicles
         [HttpGet, Route("api/vehicles")]
@@ -25,7 +25,7 @@ namespace SwiftSearch.Controllers.WebApi
         {
             try
             {
-                var list = await _unitOfWork.Vehicle.GetAllDataAsync();
+                var list = await _unitOfWork.VehicleRepo.GetAllDataAsync();
                 return Ok(list);
             }
             catch (Exception)
@@ -37,15 +37,12 @@ namespace SwiftSearch.Controllers.WebApi
 
         // GET: api/Vehicles/5
         [HttpGet, Route("api/vehicles/{id}")]
-        public async Task<IHttpActionResult> Get(int? id)
+        public async Task<IHttpActionResult> Get(int id)
         {
             try
             {
-                if(id == null)
-                {
-                    return NotFound();
-                }
-                var item = await _unitOfWork.Vehicle.FindAsync(id);
+              
+                var item = await _unitOfWork.VehicleRepo.FindAsync(id);
                 if(item == null)
                 {
                     return BadRequest();
@@ -73,7 +70,7 @@ namespace SwiftSearch.Controllers.WebApi
                     return BadRequest();
                 }
                 
-                _unitOfWork.Vehicle.Insert(vehicle);
+                _unitOfWork.VehicleRepo.Insert(vehicle);
                 _unitOfWork.Complete();
 
                 return Created(Request.RequestUri+ "/" + vehicle.ID, vehicle);
@@ -89,16 +86,13 @@ namespace SwiftSearch.Controllers.WebApi
         // PUT: api/Vehicles/5
         [HttpPut, Route("api/vehicles/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult Put(int? id, Vehicle vehicle)
+        public IHttpActionResult Put(int id, Vehicle vehicle)
         {
            
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-                _unitOfWork.Vehicle.Update(vehicle);
+               
+                _unitOfWork.VehicleRepo.Update(vehicle);
                 _unitOfWork.Complete();
 
                 return Ok(vehicle);
@@ -113,16 +107,12 @@ namespace SwiftSearch.Controllers.WebApi
 
         // DELETE: api/Vehicles/5
         [HttpDelete, Route("api/vehicles/{id}")]
-        public IHttpActionResult Delete(int? id)
+        public IHttpActionResult Delete(int id)
         {
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                _unitOfWork.Vehicle.Delete(id);
+               
+                _unitOfWork.VehicleRepo.Delete(id);
                 _unitOfWork.Complete();
                 return Ok("Vehicle Deleted Successfully");
             }

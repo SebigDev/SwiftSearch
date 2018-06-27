@@ -16,15 +16,15 @@ namespace SwiftSearch.Controllers.WebApi
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public FurnituresApiController()
+        public FurnituresApiController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
+            _unitOfWork = unitOfWork;
         }
         // GET: api/Furnitures
         [Route("api/furnitures")]
         public async Task<IHttpActionResult> Get()
         {
-            var items = await _unitOfWork.Furniture.GetAllDataAsync();
+            var items = await _unitOfWork.FurnitureRepo.GetAllDataAsync();
             return Ok(items);
         }
 
@@ -36,7 +36,7 @@ namespace SwiftSearch.Controllers.WebApi
             {
                 return NotFound();
             }
-            var item = await _unitOfWork.Furniture.FindAsync(id);
+            var item = await _unitOfWork.FurnitureRepo.FindAsync(id);
             return Ok(item);
         }
 
@@ -47,7 +47,7 @@ namespace SwiftSearch.Controllers.WebApi
             try
             {
                
-                _unitOfWork.Furniture.Insert(furniture);
+                _unitOfWork.FurnitureRepo.Insert(furniture);
                 _unitOfWork.Complete();
                 return Created(Request.RequestUri + "/" + furniture.ID, furniture);
             }
@@ -72,7 +72,7 @@ namespace SwiftSearch.Controllers.WebApi
                     return BadRequest();
                 }
 
-                _unitOfWork.Furniture.Update(furniture);
+                _unitOfWork.FurnitureRepo.Update(furniture);
                 _unitOfWork.Complete();
                 return Ok(furniture);
             }
@@ -92,7 +92,7 @@ namespace SwiftSearch.Controllers.WebApi
                 {
                     return NotFound();
                 }
-                _unitOfWork.Furniture.Delete(id);
+                _unitOfWork.FurnitureRepo.Delete(id);
                 _unitOfWork.Complete();
                 return Ok();
             }

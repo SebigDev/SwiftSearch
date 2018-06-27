@@ -1,4 +1,4 @@
-﻿namespace SwiftSearch
+﻿namespace SwiftSearch.Helpers
 {
     public class MVCRouteHandler
     {

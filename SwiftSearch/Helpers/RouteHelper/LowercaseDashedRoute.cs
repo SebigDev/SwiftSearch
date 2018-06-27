@@ -3,7 +3,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SwiftSearch
+namespace SwiftSearch.Helpers
 {
     public class LowercaseDashedRoute : Route
     {

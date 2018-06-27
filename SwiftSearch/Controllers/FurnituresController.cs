@@ -1,12 +1,8 @@
 ﻿using SwiftSearch.Data;
-using SwiftSearch.Models;
-using SwiftSearch.Repository;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using SwiftSearch.Interfaces;
@@ -16,14 +12,14 @@ namespace SwiftSearch.Controllers
     public class FurnituresController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public FurnituresController()
+        public FurnituresController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new SwiftSearchDbContext());
+            _unitOfWork = unitOfWork;
         }
         // GET: Furnitures
         public async Task<ActionResult> Index()
         {
-            var list = await _unitOfWork.Furniture.GetAllDataAsync();
+            var list = await _unitOfWork.FurnitureRepo.GetAllDataAsync();
             return View(list);
         }
         public ActionResult Listing(string sortOn, string orderBy, string pSortOn, int? page)
@@ -47,7 +43,7 @@ namespace SwiftSearch.Controllers
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
            
-            var list = _unitOfWork.Furniture.GetFurnituresBySearch().ToList();
+            var list = _unitOfWork.FurnitureRepo.GetFurnituresBySearch().ToList();
             
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             
@@ -56,7 +52,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var detail = await _unitOfWork.Furniture.FindAsync(id);
+            var detail = await _unitOfWork.FurnitureRepo.FindAsync(id);
             return View(detail);
         }
 
@@ -80,7 +76,7 @@ namespace SwiftSearch.Controllers
                     furniture.FurnitureImage = "~/PhotoUploads/Furnitures/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Furnitures/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
-                    _unitOfWork.Furniture.Insert(furniture);
+                    _unitOfWork.FurnitureRepo.Insert(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
@@ -91,7 +87,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var edit = await _unitOfWork.Furniture.FindAsync(id);
+            var edit = await _unitOfWork.FurnitureRepo.FindAsync(id);
             return View(edit);
         }
 
@@ -111,7 +107,7 @@ namespace SwiftSearch.Controllers
                     furniture.FurnitureImage = "~/PhotoUploads/Vehicles/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
-                    _unitOfWork.Furniture.Update(furniture);
+                    _unitOfWork.FurnitureRepo.Update(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
@@ -126,7 +122,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var delete = await _unitOfWork.Furniture.FindAsync(id);
+            var delete = await _unitOfWork.FurnitureRepo.FindAsync(id);
 
             return View(delete);
         }
@@ -138,15 +134,15 @@ namespace SwiftSearch.Controllers
             try
             {
                 // TODO: Add delete logic here
-                _unitOfWork.Furniture.FindAsync(id);
-                _unitOfWork.Furniture.Delete(furniture);
+                _unitOfWork.FurnitureRepo.FindAsync(id);
+                _unitOfWork.FurnitureRepo.Delete(furniture);
                 return RedirectToAction("Index");
             }
             catch
             {
-                ModelState.AddModelError("","Cannot Delete Furniture");
+                throw new ArgumentException(String.Format($"The {furniture.FurnitureName} could not be deleted"));
             }
-            return View();
+           // return View();
         }
     }
 }

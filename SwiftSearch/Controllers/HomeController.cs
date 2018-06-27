@@ -1,6 +1,7 @@
 ﻿
 using PagedList;
 using SwiftSearch.Data;
+using SwiftSearch.Helpers;
 using SwiftSearch.Interfaces;
 using SwiftSearch.Models;
 using SwiftSearch.Repository;
@@ -16,9 +17,9 @@ namespace SwiftSearch.Controllers
     {
         private IUnitOfWork _unitOfWork;
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new SwiftSearchDbContext()); 
+            _unitOfWork = unitOfWork; 
         }
         
 
@@ -45,27 +46,27 @@ namespace SwiftSearch.Controllers
             ViewBag.SortOn = sortOn;
             ViewBag.Keyword = keyword;
 
-            var list = _unitOfWork.Vehicle.GetVehiclesBySearch();
-            var list2 = _unitOfWork.Furniture.GetFurnituresBySearch();
+            var list = _unitOfWork.VehicleRepo.GetVehiclesBySearch();
+            var list2 = _unitOfWork.FurnitureRepo.GetFurnituresBySearch();
  
             if (!string.IsNullOrWhiteSpace(keyword))
             {
               
                 list = list.Where(
-                                  f => f.CarName.ToLower().Contains(keyword) ||
-                                  f.CarModel.ToLower().Contains(keyword) ||
-                                  f.CarDealer.ToLower().Contains(keyword) ||
-                                  f.CarPrice.ToString().ToLower().Contains(keyword) ||
-                                  f.CarAddress.ToLower().Contains(keyword) ||
-                                  f.CarColor.ToLower().Contains(keyword)
+                                  f => f.CarName.ToLower().Contains(keyword.ToLower()) ||
+                                  f.CarModel.ToLower().Contains(keyword.ToLower()) ||
+                                  f.CarDealer.ToLower().Contains(keyword.ToLower()) ||
+                                  f.CarPrice.ToString().ToLower().Contains(keyword.ToLower()) ||
+                                  f.CarAddress.ToLower().Contains(keyword.ToLower()) ||
+                                  f.CarColor.ToLower().Contains(keyword.ToLower())
                                   );
                 list2 = list2.Where(
-                                    f => f.FurnitureName.ToLower().Contains(keyword) ||
-                                    f.FurnitureModel.ToLower().Contains(keyword) ||
-                                    f.FurnitureDealer.ToLower().Contains(keyword) ||
-                                    f.FurniturePrice.ToString().ToLower().Contains(keyword)||
-                                    f.FurnitureAddress.ToLower().Contains(keyword) ||
-                                    f.FurnitureColor.ToLower().Contains(keyword)
+                                    f => f.FurnitureName.ToLower().Contains(keyword.ToLower()) ||
+                                    f.FurnitureModel.ToLower().Contains(keyword.ToLower()) ||
+                                    f.FurnitureDealer.ToLower().Contains(keyword.ToLower()) ||
+                                    f.FurniturePrice.ToString().ToLower().Contains(keyword.ToLower()) ||
+                                    f.FurnitureAddress.ToLower().Contains(keyword.ToLower()) ||
+                                    f.FurnitureColor.ToLower().Contains(keyword.ToLower())
                                     );
             }
             else
@@ -79,7 +80,8 @@ namespace SwiftSearch.Controllers
            
             return View(flist);
         }
-       
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
