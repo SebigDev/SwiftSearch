@@ -30,13 +30,13 @@ namespace SwiftSearch.Controllers.WebApi
 
         // GET: api/Furnitures/5
         [Route("api/furnitures/{id}")]
-        public async Task<IHttpActionResult> Get(int? id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            if(id == null)
+            var item = await _unitOfWork.FurnitureRepo.FindAsync(id);
+            if(item == null)
             {
                 return NotFound();
             }
-            var item = await _unitOfWork.FurnitureRepo.FindAsync(id);
             return Ok(item);
         }
 

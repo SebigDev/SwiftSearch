@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
 using SwiftSearch.Interfaces;
+using System.Web.Helpers;
 
 namespace SwiftSearch.Controllers
 {
@@ -72,11 +73,19 @@ namespace SwiftSearch.Controllers
 
                     var fileName = Path.GetFileNameWithoutExtension(furniture.ImageFile.FileName);
                     var extension = Path.GetExtension(furniture.ImageFile.FileName);
-                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    fileName = fileName + Guid.NewGuid().ToString() + extension;
                     furniture.FurnitureImage = "~/PhotoUploads/Furnitures/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Furnitures/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
-                    _unitOfWork.FurnitureRepo.Insert(furniture);
+                    //resizing image
+                    MemoryStream ms = new MemoryStream();
+                    WebImage webImage = new WebImage(fileName);
+                    if (webImage.Width > 700)
+                    {
+                        webImage.Resize(700, 564, false);
+                        webImage.Save(fileName);
+                    }
+                _unitOfWork.FurnitureRepo.Insert(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
@@ -103,20 +112,29 @@ namespace SwiftSearch.Controllers
 
                     var fileName = Path.GetFileNameWithoutExtension(furniture.ImageFile.FileName);
                     var extension = Path.GetExtension(furniture.ImageFile.FileName);
-                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    fileName = fileName + Guid.NewGuid().ToString() + extension;
                     furniture.FurnitureImage = "~/PhotoUploads/Vehicles/" + fileName;
                     fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                     furniture.ImageFile.SaveAs(fileName);
+                    //resizing image
+                    MemoryStream ms = new MemoryStream();
+                    WebImage webImage = new WebImage(fileName);
+                    if (webImage.Width > 700)
+                    {
+                        webImage.Resize(700, 564, false);
+                        webImage.Save(fileName);
+                    }
                     _unitOfWork.FurnitureRepo.Update(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+               
             }
             catch
             {
-                return View();
+                throw new ArgumentNullException(String.Format($"Cannot Update {furniture.FurnitureName} "));
             }
+            return View(furniture);
         }
 
         // GET: Furnitures/Delete/5

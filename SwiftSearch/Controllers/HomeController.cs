@@ -69,9 +69,10 @@ namespace SwiftSearch.Controllers
                                     f.FurnitureColor.ToLower().Contains(keyword.ToLower())
                                     );
             }
-            else
+           if(!list.Any() || !list2.Any())
             {
-                ViewBag.NullSearch = "Your Search Returned no Result";  
+                var error = "No Item(s) Matches your Search";
+                ViewBag.Error = error;
             }
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             var finalList1 = list2.ToPagedList(page.Value, recordsPerPage);

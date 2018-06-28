@@ -49,11 +49,11 @@
         
             <div class="row">
                 @if (Model == null)
-    {
-            <p>@ViewBag.NullSearch</p>
-}
-else
-{
+             {
+                <h3 class="text-danger">@ViewBag.Error</h3>
+            }
+            else
+            {
 foreach (var item in Model.Item1)
 {
             <div class="col-md-6 col-lg-4">
@@ -133,7 +133,6 @@ foreach (var item in Model.Item2)
             </div>
 }
 }
-
 
             </div>
         </div>

@@ -1,8 +1,17 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
+using SwiftSearch.Controllers;
 using SwiftSearch.Interfaces;
+using SwiftSearch.Models;
 using SwiftSearch.Repository;
 using System;
-
+using System.Data;
+using System.Data.Common;
+using System.Data.Entity;
+using System.Web;
 using Unity;
+using Unity.Injection;
 
 namespace SwiftSearch
 {
@@ -47,6 +56,12 @@ namespace SwiftSearch
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IVehicleRepository, VehicleRepository>();
             container.RegisterType<IFurnitureRepository, FurnitureRepository>();
+
+            //Register all this on the Unity Container
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            container.RegisterType<DbContext, SwiftSearchDbContext>();
+            container.RegisterType<IAuthenticationManager>(
+                        new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
         }
     }
 }

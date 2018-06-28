@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace SwiftSearch.Controllers
@@ -86,10 +87,19 @@ namespace SwiftSearch.Controllers
 
                 var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
                 var extension = Path.GetExtension(vehicle.ImageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                fileName = fileName + Guid.NewGuid().ToString() + extension;
                 vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
+
+                //resizing image
+                MemoryStream ms = new MemoryStream();
+                WebImage webImage = new WebImage(fileName);
+                if (webImage.Width > 700)
+                {
+                    webImage.Resize(700, 564, false);
+                    webImage.Save(fileName);
+                }
                 _unitOfWork.VehicleRepo.Insert(vehicle);
                 _unitOfWork.Complete();            
                 return RedirectToAction("Index");
@@ -121,10 +131,18 @@ namespace SwiftSearch.Controllers
                 await _unitOfWork.VehicleRepo.FindAsync(id);
                 var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
                 var extension = Path.GetExtension(vehicle.ImageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                fileName = fileName + Guid.NewGuid().ToString() + extension;
                 vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
                 vehicle.ImageFile.SaveAs(fileName);
+                //resizing image
+                MemoryStream ms = new MemoryStream();
+                WebImage webImage = new WebImage(fileName);
+                if (webImage.Width > 700)
+                {
+                    webImage.Resize(700, 564, false);
+                    webImage.Save(fileName);
+                }
                 _unitOfWork.VehicleRepo.Update(vehicle);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
