@@ -15,11 +15,15 @@ namespace SwiftSearch.Controllers
 {
     public class HomeController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IFurnitureRepository _furnitureRepository;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController(IUnitOfWork unitOfWork,IVehicleRepository vehicleRepository,IFurnitureRepository furnitureRepository)
         {
-            _unitOfWork = unitOfWork; 
+            _unitOfWork = unitOfWork;
+            _vehicleRepository = vehicleRepository;
+            _furnitureRepository = furnitureRepository;
         }
         
 
@@ -40,14 +44,12 @@ namespace SwiftSearch.Controllers
                 }
             }
 
-           
-
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
             ViewBag.Keyword = keyword;
 
-            var list = _unitOfWork.VehicleRepo.GetVehiclesBySearch();
-            var list2 = _unitOfWork.FurnitureRepo.GetFurnituresBySearch();
+            var list = _vehicleRepository.GetVehiclesBySearch();
+            var list2 = _furnitureRepository.GetFurnituresBySearch();
  
             if (!string.IsNullOrWhiteSpace(keyword))
             {

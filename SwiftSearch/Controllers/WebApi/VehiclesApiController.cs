@@ -14,10 +14,13 @@ namespace SwiftSearch.Controllers.WebApi
     public class VehiclesApiController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IVehicleRepository _vehicleRepository;
 
-        public VehiclesApiController(IUnitOfWork unitOfWork)
+        public VehiclesApiController(IUnitOfWork unitOfWork, IVehicleRepository vehicleRepository)
         {
+            
             _unitOfWork = unitOfWork;
+            _vehicleRepository = vehicleRepository;
         }
         // GET: api/Vehicles
         [HttpGet, Route("api/vehicles")]
@@ -25,7 +28,7 @@ namespace SwiftSearch.Controllers.WebApi
         {
             try
             {
-                var list = await _unitOfWork.VehicleRepo.GetAllDataAsync();
+                var list = await _vehicleRepository.GetAllDataAsync();
                 return Ok(list);
             }
             catch (Exception)
@@ -42,7 +45,7 @@ namespace SwiftSearch.Controllers.WebApi
             try
             {
               
-                var item = await _unitOfWork.VehicleRepo.FindAsync(id);
+                var item = await _vehicleRepository.FindAsync(id);
                 if(item == null)
                 {
                     return BadRequest();
@@ -69,8 +72,8 @@ namespace SwiftSearch.Controllers.WebApi
                 {
                     return BadRequest();
                 }
-                
-                _unitOfWork.VehicleRepo.Insert(vehicle);
+
+                _vehicleRepository.Insert(vehicle);
                 _unitOfWork.Complete();
 
                 return Created(Request.RequestUri+ "/" + vehicle.ID, vehicle);
@@ -91,8 +94,8 @@ namespace SwiftSearch.Controllers.WebApi
            
             try
             {
-               
-                _unitOfWork.VehicleRepo.Update(vehicle);
+
+                _vehicleRepository.Update(vehicle);
                 _unitOfWork.Complete();
 
                 return Ok(vehicle);
@@ -111,8 +114,8 @@ namespace SwiftSearch.Controllers.WebApi
         {
             try
             {
-               
-                _unitOfWork.VehicleRepo.Delete(id);
+
+                _vehicleRepository.Delete(id);
                 _unitOfWork.Complete();
                 return Ok("Vehicle Deleted Successfully");
             }

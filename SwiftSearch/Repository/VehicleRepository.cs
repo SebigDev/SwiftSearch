@@ -67,12 +67,9 @@ namespace SwiftSearch.Repository
 
         public Vehicle MakeVehiclePayment()
         {
-            var pay = _context.Vehicles.FirstOrDefault();
-            List<Vehicle> vehiclesList = new List<Vehicle>();
-            foreach (var list in vehiclesList)
-                vehiclesList.Add(list);
-            return pay;
-          
+            var selectCar = _context.Vehicles.FirstOrDefault();
+            return selectCar;
+
         }
     }
 }

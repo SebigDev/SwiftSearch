@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Web;
 
-namespace SwiftSearch.Data
+namespace SwiftSearch.Models
 {
-    public class Vehicle 
+    public class VehiclePayment : RemitaPost
     {
         [Key]
         public int ID { get; set; }
@@ -15,11 +17,10 @@ namespace SwiftSearch.Data
         public int CarPrice { get; set; }
         public string CarDealer { get; set; }
         public string CarAddress { get; set; }
-        [Display(Name ="Upload First Image")]
+        [Display(Name = "Upload First Image")]
         public string CarImage { get; set; }
-      
+
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
-
     }
 }

@@ -15,16 +15,19 @@ namespace SwiftSearch.Controllers.WebApi
     public class FurnituresApiController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFurnitureRepository _furnitureRepository;
 
-        public FurnituresApiController(IUnitOfWork unitOfWork)
+        public FurnituresApiController(IUnitOfWork unitOfWork, IFurnitureRepository furnitureRepository)
         {
+            
             _unitOfWork = unitOfWork;
+            _furnitureRepository = furnitureRepository;
         }
         // GET: api/Furnitures
         [Route("api/furnitures")]
         public async Task<IHttpActionResult> Get()
         {
-            var items = await _unitOfWork.FurnitureRepo.GetAllDataAsync();
+            var items = await _furnitureRepository.GetAllDataAsync();
             return Ok(items);
         }
 
@@ -32,7 +35,7 @@ namespace SwiftSearch.Controllers.WebApi
         [Route("api/furnitures/{id}")]
         public async Task<IHttpActionResult> Get(int id)
         {
-            var item = await _unitOfWork.FurnitureRepo.FindAsync(id);
+            var item = await _furnitureRepository.FindAsync(id);
             if(item == null)
             {
                 return NotFound();
@@ -46,8 +49,8 @@ namespace SwiftSearch.Controllers.WebApi
         {
             try
             {
-               
-                _unitOfWork.FurnitureRepo.Insert(furniture);
+
+                _furnitureRepository.Insert(furniture);
                 _unitOfWork.Complete();
                 return Created(Request.RequestUri + "/" + furniture.ID, furniture);
             }
@@ -72,7 +75,7 @@ namespace SwiftSearch.Controllers.WebApi
                     return BadRequest();
                 }
 
-                _unitOfWork.FurnitureRepo.Update(furniture);
+                _furnitureRepository.Update(furniture);
                 _unitOfWork.Complete();
                 return Ok(furniture);
             }
@@ -92,7 +95,7 @@ namespace SwiftSearch.Controllers.WebApi
                 {
                     return NotFound();
                 }
-                _unitOfWork.FurnitureRepo.Delete(id);
+                _furnitureRepository.Delete(id);
                 _unitOfWork.Complete();
                 return Ok();
             }

@@ -1,7 +1,12 @@
 ﻿using PagedList;
+using SwiftSearch.Config;
 using SwiftSearch.Data;
+using SwiftSearch.Helpers;
 using SwiftSearch.Interfaces;
+using SwiftSearch.Models;
+using SwiftSearch.RemitaResources.Infrastructure;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,17 +18,34 @@ namespace SwiftSearch.Controllers
     public class VehiclesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IVehicleRepository _vehicleRepository;
+        private IGateWayIntegrator Integrator { get; set; }
 
-        public VehiclesController(IUnitOfWork unitOfWork)
+        private IntegrateConfig config;
+
+        private RemitaHashGenerator _hasher;
+
+        public VehiclesController(IUnitOfWork unitOfWork, IVehicleRepository vehicleRepository)
         {
+            #region MyRegion
+            //demo credentails provided by remita for use in development.
+            //substitute with actual live credentials.
+            config = new SampleConfig("2547916", "4430731", "1946");
+            _hasher = new RemitaHashGenerator(config);
+            //Better way would be to use DI to inject everything rather than newing up thing in the controller
+            Integrator = new RemitaGateWayIntegrator(_hasher);
+            #endregion
+
+
             _unitOfWork = unitOfWork;
+            _vehicleRepository = vehicleRepository;
 
         }
        
         // GET: Vehicles
         public async Task<ActionResult> Index()
         {
-           var allData = await _unitOfWork.VehicleRepo.GetAllDataAsync();
+           var allData = await _vehicleRepository.GetAllDataAsync();
             return View(allData);
         
         }
@@ -46,7 +68,7 @@ namespace SwiftSearch.Controllers
 
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
-            var list = _unitOfWork.VehicleRepo.GetVehiclesBySearch().ToList();
+            var list = _vehicleRepository.GetVehiclesBySearch().ToList();
 
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             return View(finalList);
@@ -56,9 +78,49 @@ namespace SwiftSearch.Controllers
 
         public ActionResult MakePayment(Vehicle model)
         {
-            var listPay = _unitOfWork.VehicleRepo.MakeVehiclePayment();
-            return View(listPay);
+            var listPay = _vehicleRepository.MakeVehiclePayment();
+            if(listPay != null)
+            {
+                return RedirectToAction("CreatePayment", "Vehicles", new { id = listPay.ID});
+            }
+            return View();
         }
+
+
+        public ActionResult CreatePayment(int Id)
+        {
+            var paymentType = from PaymentType p in Enum.GetValues(typeof(PaymentType))
+                              select new { ID = p, Name = p.GetDescription() };
+            ViewBag.PaymentType = new SelectList(paymentType, "Name", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePayment(Payment model)
+        {
+            var post = new VehiclePayment
+            {
+                CarPrice = Convert.ToInt32(model.PaymentAmount),
+                PayerEmail = model.PayerEmail,
+                PayerName = model.PayerName,
+                PayerPhone = model.PayerPhoneNumber,
+                PayerId = Guid.NewGuid().ToString(),
+                OrderId = DateTimeOffset.UtcNow.UtcTicks.ToString(),
+                MerchantId = config.MerchantId,
+                ServiceTypeId = config.ServiceTypeId,
+                RemitaPaymentType = model.PaymentType.ToString(),
+                ResponseUrl = "http://localhost:1572/Vehicles/Listing"
+            };
+
+            post.Hash = _hasher.HashRemitaRequest(post);
+
+            var paymentType = from PaymentType p in Enum.GetValues(typeof(PaymentType))
+                              select new { ID = p, Name = p.GetDescription() };
+            ViewBag.PaymentType = new SelectList(paymentType, "Name", "Name");
+            return View("ProcessPayment", post);
+        }
+
         // GET: Vehicles/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -66,7 +128,7 @@ namespace SwiftSearch.Controllers
             {
                 return HttpNotFound();
             }
-            var vehicleDetail = await _unitOfWork.VehicleRepo.FindAsync(id);
+            var vehicleDetail = await _vehicleRepository.FindAsync(id);
             return View(vehicleDetail);
         }
 
@@ -85,24 +147,24 @@ namespace SwiftSearch.Controllers
                 if (ModelState.IsValid)
                 {
 
-                var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
-                var extension = Path.GetExtension(vehicle.ImageFile.FileName);
-                fileName = fileName + Guid.NewGuid().ToString() + extension;
-                vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
-                vehicle.ImageFile.SaveAs(fileName);
+                    var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
+                    var extension = Path.GetExtension(vehicle.ImageFile.FileName);
+                    fileName = fileName + Guid.NewGuid().ToString() + extension;
+                    vehicle.CarImage = "~/PhotoUploads/Vehicles/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/PhotoUploads/Vehicles/"), fileName);
+                    vehicle.ImageFile.SaveAs(fileName);
 
-                //resizing image
-                MemoryStream ms = new MemoryStream();
-                WebImage webImage = new WebImage(fileName);
-                if (webImage.Width > 700)
-                {
-                    webImage.Resize(700, 564, false);
-                    webImage.Save(fileName);
-                }
-                _unitOfWork.VehicleRepo.Insert(vehicle);
-                _unitOfWork.Complete();            
-                return RedirectToAction("Index");
+                    //resizing image
+                    MemoryStream ms = new MemoryStream();
+                    WebImage webImage = new WebImage(fileName);
+                    if (webImage.Width > 700)
+                    {
+                        webImage.Resize(700, 564, false);
+                        webImage.Save(fileName);
+                    }
+                    _vehicleRepository.Insert(vehicle);
+                    _unitOfWork.Complete();            
+                    return RedirectToAction("Index");
                 }  
             return View(vehicle);
         }
@@ -114,7 +176,7 @@ namespace SwiftSearch.Controllers
             {
                 return HttpNotFound();
             }
-            var vehicleEdit = await _unitOfWork.VehicleRepo.FindAsync(id);
+            var vehicleEdit = await _vehicleRepository.FindAsync(id);
     
             return View(vehicleEdit);
         }
@@ -128,7 +190,7 @@ namespace SwiftSearch.Controllers
             {
                 // TODO: Add update logic here
 
-                await _unitOfWork.VehicleRepo.FindAsync(id);
+                await _vehicleRepository.FindAsync(id);
                 var fileName = Path.GetFileNameWithoutExtension(vehicle.ImageFile.FileName);
                 var extension = Path.GetExtension(vehicle.ImageFile.FileName);
                 fileName = fileName + Guid.NewGuid().ToString() + extension;
@@ -143,7 +205,7 @@ namespace SwiftSearch.Controllers
                     webImage.Resize(700, 564, false);
                     webImage.Save(fileName);
                 }
-                _unitOfWork.VehicleRepo.Update(vehicle);
+                _vehicleRepository.Update(vehicle);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
@@ -157,7 +219,7 @@ namespace SwiftSearch.Controllers
         // GET: Vehicles/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var deleteVehicle = await _unitOfWork.VehicleRepo.FindAsync(id);
+            var deleteVehicle = await _vehicleRepository.FindAsync(id);
             return View(deleteVehicle);
         }
 
@@ -169,7 +231,7 @@ namespace SwiftSearch.Controllers
             {
 
                 // TODO: Add delete logic here
-                _unitOfWork.VehicleRepo.Delete(id);
+                _vehicleRepository.Delete(id);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }

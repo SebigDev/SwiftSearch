@@ -7,20 +7,38 @@ using System.Web.Mvc;
 using PagedList;
 using SwiftSearch.Interfaces;
 using System.Web.Helpers;
+using SwiftSearch.RemitaResources.Infrastructure;
 
 namespace SwiftSearch.Controllers
 {
     public class FurnituresController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public FurnituresController(IUnitOfWork unitOfWork)
+        private readonly IFurnitureRepository _furnitureRepository;
+
+        private IGateWayIntegrator Integrator { get; set; }
+        private IntegrateConfig config;
+        private RemitaHashGenerator _hasher;
+
+        public FurnituresController(IUnitOfWork unitOfWork, IFurnitureRepository furnitureRepository)
         {
+            #region RemitaConfig
+            //demo credentails provided by remita for use in development.
+            //substitute with actual live credentials.
+            config = new SampleConfig("2547916", "4430731", "1946");
+            _hasher = new RemitaHashGenerator(config);
+            //Better way would be to use DI to inject everything rather than newing up thing in the controller
+            Integrator = new RemitaGateWayIntegrator(_hasher); 
+            #endregion
+
+           
             _unitOfWork = unitOfWork;
+            _furnitureRepository = furnitureRepository; 
         }
         // GET: Furnitures
         public async Task<ActionResult> Index()
         {
-            var list = await _unitOfWork.FurnitureRepo.GetAllDataAsync();
+            var list = await _furnitureRepository.GetAllDataAsync();
             return View(list);
         }
         public ActionResult Listing(string sortOn, string orderBy, string pSortOn, int? page)
@@ -44,7 +62,7 @@ namespace SwiftSearch.Controllers
             ViewBag.OrderBy = orderBy;
             ViewBag.SortOn = sortOn;
            
-            var list = _unitOfWork.FurnitureRepo.GetFurnituresBySearch().ToList();
+            var list = _furnitureRepository.GetFurnituresBySearch().ToList();
             
             var finalList = list.ToPagedList(page.Value, recordsPerPage);
             
@@ -53,7 +71,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var detail = await _unitOfWork.FurnitureRepo.FindAsync(id);
+            var detail = await _furnitureRepository.FindAsync(id);
             return View(detail);
         }
 
@@ -85,7 +103,7 @@ namespace SwiftSearch.Controllers
                         webImage.Resize(700, 564, false);
                         webImage.Save(fileName);
                     }
-                _unitOfWork.FurnitureRepo.Insert(furniture);
+                    _furnitureRepository.Insert(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
@@ -96,7 +114,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var edit = await _unitOfWork.FurnitureRepo.FindAsync(id);
+            var edit = await _furnitureRepository.FindAsync(id);
             return View(edit);
         }
 
@@ -124,7 +142,7 @@ namespace SwiftSearch.Controllers
                         webImage.Resize(700, 564, false);
                         webImage.Save(fileName);
                     }
-                    _unitOfWork.FurnitureRepo.Update(furniture);
+                    _furnitureRepository.Update(furniture);
                     _unitOfWork.Complete();
                     return RedirectToAction("Index");
                 }
@@ -140,7 +158,7 @@ namespace SwiftSearch.Controllers
         // GET: Furnitures/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var delete = await _unitOfWork.FurnitureRepo.FindAsync(id);
+            var delete = await _furnitureRepository.FindAsync(id);
 
             return View(delete);
         }
@@ -152,8 +170,8 @@ namespace SwiftSearch.Controllers
             try
             {
                 // TODO: Add delete logic here
-                _unitOfWork.FurnitureRepo.FindAsync(id);
-                _unitOfWork.FurnitureRepo.Delete(furniture);
+                _furnitureRepository.FindAsync(id);
+                _furnitureRepository.Delete(furniture);
                 return RedirectToAction("Index");
             }
             catch

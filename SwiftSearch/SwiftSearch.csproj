@@ -249,6 +249,7 @@
     <Compile Include="Controllers\WebApi\FurnituresApiController.cs" />
     <Compile Include="Controllers\WebApi\VehiclesApiController.cs" />
     <Compile Include="Helpers\Category.cs" />
+    <Compile Include="Helpers\GetEnumerator.cs" />
     <Compile Include="Helpers\RouteHelper\DashedRouteHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,9 +275,24 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemPayment.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Helpers\RouteHelper\MVCRouteHandler.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemitaResources\Abstractions\IGatewayIntegrator.cs" />
+    <Compile Include="RemitaResources\Abstractions\IntegrateConfig.cs" />
+    <Compile Include="RemitaResources\ClientParameter.cs" />
+    <Compile Include="RemitaResources\Config\PaymentType.cs" />
+    <Compile Include="RemitaResources\Config\RemitaConfig.cs" />
+    <Compile Include="RemitaResources\Config\RemitaTransactioncodes.cs" />
+    <Compile Include="RemitaResources\Config\ServiceType.cs" />
+    <Compile Include="RemitaResources\Exceptions\RemitaConfigException.cs" />
+    <Compile Include="RemitaResources\HashGenerator.cs" />
+    <Compile Include="RemitaResources\Infrastructure\SampleConfig.cs" />
+    <Compile Include="RemitaResources\RemitaGateWayIntegrator.cs" />
+    <Compile Include="RemitaResources\RemitaPost.cs" />
+    <Compile Include="RemitaResources\RemitaResponse.cs" />
     <Compile Include="Repository\FunitureRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Repository\VehicleRepository.cs" />
@@ -484,6 +500,8 @@
     <Content Include="Views\Furnitures\Listing.cshtml" />
     <Content Include="Views\Vehicles\Listing.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
+    <Content Include="Views\Vehicles\CreatePayment.cshtml" />
+    <Content Include="Views\Vehicles\ProcessPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
